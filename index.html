@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#8fa99a">
-<title>TwinCare 🌿</title>
+<title>TwinCare</title>
 <style>
 *{box-sizing:border-box}
 :root{--bg:#f4f0e8;--card:#fbfaf6;--sage:#8fa99a;--sage2:#dfe9e1;--sage3:#e8eee9;--text:#38433e;--muted:#7b837e;--border:#e5e0d7;--danger:#9a665f}
@@ -36,10 +36,26 @@ label{display:block;font-size:13px;font-weight:650;margin:10px 0}input,select{wi
 .photoPreview{width:96px;height:96px;border-radius:22px;background:#eef2ee;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden;margin:8px auto}.photoPreview img{width:100%;height:100%;object-fit:cover}.note{font-size:12px;color:var(--muted);margin-top:5px}
 @media(max-width:390px){.tabs{gap:5px}.tab{padding:9px 8px;font-size:12px}.profileCard{grid-template-columns:62px 1fr}.avatar{width:62px;height:62px}}
 </style>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+body{font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif}
+.logo{font-weight:600;letter-spacing:-1px;color:#596554}.logo .careWord{color:#d39a89;font-weight:400}
+.datebar{display:grid!important;grid-template-columns:32px minmax(0,1fr) 32px 32px!important;gap:3px!important;align-items:center!important;padding:0 14px 13px!important;white-space:nowrap!important}
+.datebtn{min-width:0!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px!important;font-weight:600!important}
+.arrow,.miniDateBtn{width:32px!important;height:32px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}.arrow{font-size:22px!important}
+.tabs{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:7px!important;padding:0 14px 15px!important;overflow:visible!important}
+.tab{min-width:0!important;height:76px!important;border:0!important;border-radius:15px!important;padding:8px 3px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:6px!important;font-size:8.5px!important;font-weight:600!important;letter-spacing:.45px!important;line-height:1.15!important;text-align:center!important;white-space:normal!important;color:#536057!important;box-shadow:none!important}
+.tab:nth-child(1){background:#cbd7cb!important}.tab:nth-child(2){background:#d8d2c1!important}.tab:nth-child(3){background:#e4c8bd!important}.tab:nth-child(4){background:#c5cec0!important}
+.tab.active{filter:brightness(.91);color:#3f4b43!important}
+.navIcon{width:25px;height:25px;display:block;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.primary,.secondary,.tinyBtn,.child,input,select,h1,h2,.amount,.time,.metric strong{font-family:'Montserrat',sans-serif}
+@media(max-width:390px){.tabs{gap:5px!important;padding-left:10px!important;padding-right:10px!important}.tab{height:70px!important;font-size:7.7px!important;letter-spacing:.25px!important;border-radius:13px!important}.navIcon{width:23px;height:23px}.datebar{padding-left:10px!important;padding-right:10px!important}}
+</style>
 </head>
 <body>
 <div class="app">
-<header><div class="logo">TwinCare 🌿</div><button class="iconbtn" id="settings">⚙️</button></header>
+<header><div class="logo">Twin<span class="careWord">Care</span></div><button class="iconbtn" id="settings">⚙️</button></header>
 
 <div class="datebar">
 <button class="arrow" id="prev">‹</button>
@@ -50,10 +66,10 @@ label{display:block;font-size:13px;font-weight:650;margin:10px 0}input,select{wi
 </div>
 
 <div class="tabs">
-<button class="tab active" data-screen="care">🍼 Opieka</button>
-<button class="tab" data-screen="growth">📈 Waga i wzrost</button>
-<button class="tab" data-screen="hygiene">🧴 Pielęgnacja</button>
-<button class="tab" data-screen="calendar">📅 Kalendarz</button>
+<button class="tab active" data-screen="care"><svg class="navIcon" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v3l-2 2v10.5A2.5 2.5 0 0 0 10.5 21h3a2.5 2.5 0 0 0 2.5-2.5V8l-2-2V3"/><path d="M8 12h8"/></svg><span>OPIEKA</span></button>
+<button class="tab" data-screen="growth"><svg class="navIcon" viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M16 7h3v3"/></svg><span>WAGA I<br>WZROST</span></button>
+<button class="tab" data-screen="hygiene"><svg class="navIcon" viewBox="0 0 24 24"><path d="M12 3s5 5.2 5 9a5 5 0 0 1-10 0c0-3.8 5-9 5-9Z"/><path d="M9.5 13.5c.5 1.3 1.4 2 2.8 2.2"/></svg><span>PIELĘGNACJA</span></button>
+<button class="tab" data-screen="calendar"><svg class="navIcon" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></svg><span>KALENDARZ</span></button>
 </div>
 
 <section id="care" class="screen active">
@@ -68,12 +84,20 @@ label{display:block;font-size:13px;font-weight:650;margin:10px 0}input,select{wi
 </section>
 
 <section id="growth" class="screen">
+<div class="children">
+<button class="child" data-child="0"><span class="childIcon"></span><span class="childLabel"></span></button>
+<button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
+</div>
 <div class="title"><div><h1>Waga i wzrost</h1><div class="small childName"></div></div><button class="primary" id="addMeasure">＋ Pomiar</button></div>
 <div class="card"><h2>Wykres wagi</h2><div class="chartWrap"><div id="chart"></div></div></div>
 <div class="card"><h2>Historia pomiarów</h2><div id="measureList"></div></div>
 </section>
 
 <section id="hygiene" class="screen">
+<div class="children">
+<button class="child" data-child="0"><span class="childIcon"></span><span class="childLabel"></span></button>
+<button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
+</div>
 <div class="title"><div><h1>Pielęgnacja</h1><div class="small childName"></div></div></div>
 <div class="card"><h2>Pielęgnacja</h2><div id="careTasks"></div><button class="secondary full" id="newCare">＋ Dodaj czynność</button></div>
 <div class="card"><h2>Leki i suplementy</h2><div id="medTasks"></div><button class="secondary full" id="newMed">＋ Dodaj lek / suplement</button></div>
@@ -198,7 +222,8 @@ function renderEvents(){
  $("eventsTitle").textContent=`Wydarzenia • ${prettyDate(selectedCalendarDay)}`;
  $("eventList").innerHTML=filtered.length?filtered.map(e=>{const oi=state.events.indexOf(e);return`<div class="event"><strong>${e.name}</strong><div class="small">${e.time||"Bez godziny"}</div><button class="tinyBtn danger" data-delete-event="${oi}">Usuń</button></div>`}).join(""):`<div class="empty">Brak wydarzeń tego dnia.</div>`;
 }
-function render(){$("dateBtn").textContent=prettyDate(selectedDate);renderNames();renderProfilePreview();renderCare();renderGrowth();renderTasks();renderEvents()}
+function topDate(d){return new Date(d+"T12:00:00").toLocaleDateString("pl-PL",{day:"numeric",month:"long"})}
+function render(){$("dateBtn").textContent=topDate(selectedDate);renderNames();renderProfilePreview();renderCare();renderGrowth();renderTasks();renderEvents()}
 function addTask(type){const name=prompt(type==="care"?"Nazwa czynności:":"Nazwa leku lub suplementu:");if(!name)return;(type==="care"?state.tasks[child]:state.meds[child]).push({name:name.trim()});save();render()}
 
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(b.dataset.screen).classList.add("active")});
