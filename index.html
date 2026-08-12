@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TwinCare 🌿</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f4f0e8;
+  color: #38433e;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  max-width: 520px;
+  margin: auto;
+  padding-bottom: 90px;
+}
+
+header {
+  padding: 24px 20px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.settings {
+  font-size: 22px;
+  background: none;
+  border: 0;
+}
+
+.date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px 20px;
+}
+
+.date button {
+  border: 0;
+  background: transparent;
+  font-size: 25px;
+}
+
+.date strong {
+  font-size: 16px;
+}
+
+.children {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 15px;
+}
+
+.child {
+  flex: 1;
+  padding: 13px;
+  border-radius: 15px;
+  border: 1px solid #d8ddd8;
+  background: #fbfaf6;
+  font-weight: bold;
+}
+
+.child.active {
+  background: #dfe9e1;
+  border-color: #91aa9b;
+}
+
+main {
+  padding: 0 16px;
+}
+
+.card {
+  background: #fbfaf6;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e0d7;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.metric {
+  background: #e8eee9;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.metric strong {
+  display: block;
+  font-size: 23px;
+  margin-top: 5px;
+}
+
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 13px;
+  padding: 15px;
+  background: #8fa99a;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 14px;
+}
+
+.feed {
+  display: grid;
+  grid-template-columns: 65px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.feed + .feed {
+  border-top: 1px solid #eee9e0;
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+.time {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.amount {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.small {
+  color: #7b837e;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 100%);
+  background: #fbfaf6;
+  border-top: 1px solid #ddd9d0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 4px;
+}
+
+nav button {
+  border: 0;
+  background: none;
+  color: #69746e;
+  font-size: 20px;
+}
+
+nav span {
+  display: block;
+  font-size: 10px;
+  margin-top: 3px;
+}
+
+dialog {
+  border: 0;
+  border-radius: 20px;
+  padding: 20px;
+  width: min(92%, 420px);
+}
+
+dialog::backdrop {
+  background: #25302999;
+}
+
+label {
+  display: block;
+  margin: 12px 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid #d8ddd8;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.checks {
+  display: flex;
+  gap: 10px;
+}
+
+.checks label {
+  background: #eef2ee;
+  padding: 10px;
+  border-radius: 10px;
+  flex: 1;
+}
+
+.checks input {
+  width: auto;
+}
+
+.close {
+  float: right;
+  border: 0;
+  background: none;
+  font-size: 23px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="logo">TwinCare 🌿</div>
+  <button class="settings" onclick="editNames()">⚙️</button>
+</header>
+
+<div class="date">
+  <button onclick="changeDate(-1)">‹</button>
+  <strong id="date"></strong>
+  <button onclick="changeDate(1)">›</button>
+</div>
+
+<div class="children">
+  <button class="child active" id="child0" onclick="selectChild(0)">
+    👶 <span id="name0">Bliźniak 1</span>
+  </button>
+
+  <button class="child" id="child1" onclick="selectChild(1)">
+    👶 <span id="name1">Bliźniak 2</span>
+  </button>
+</div>
+
+<main>
+
+<div class="summary">
+
+  <div class="metric">
+    🍼
+    <strong id="total">0 ml</strong>
+    <small>dzisiaj</small>
+  </div>
+
+  <div class="metric">
+    🍼
+    <strong id="feeds">0</strong>
+    <small>karmień</small>
+  </div>
+
+  <div class="metric">
+    💧
+    <strong id="pee">0</strong>
+    <small>siku</small>
+  </div>
+
+  <div class="metric">
+    💩
+    <strong id="poop">0</strong>
+    <small>kupy</small>
+  </div>
+
+</div>
+
+<button class="primary" onclick="openFeed()">
+  ＋ Dodaj karmienie
+</button>
+
+<div class="card" style="margin-top:15px">
+  <h3>Dzisiejsze karmienia</h3>
+  <div id="feedList"></div>
+</div>
+
+</main>
+
+<nav>
+  <button>🍼<span>Opieka</span></button>
+  <button>📈<span>Waga</span></button>
+  <button>🧴<span>Pielęgnacja</span></button>
+  <button>📅<span>Kalendarz</span></button>
+</nav>
+
+</div>
+
+<dialog id="feedDialog">
+
+<button class="close" onclick="feedDialog.close()">×</button>
+
+<h2>Dodaj karmienie</h2>
+
+<label>
+Godzina
+<input type="time" id="feedTime">
+</label>
+
+<label>
+Ilość mleka (ml)
+<input type="number" id="feedAmount" value="90" min="0">
+</label>
+
+<label>
+Sposób karmienia
+<select id="method">
+<option>Mleko modyfikowane</option>
+<option>Pierś</option>
+<option>Odciągane mleko</option>
+</select>
+</label>
+
+<div class="checks">
+
+<label>
+<input type="checkbox" id="feedPee">
+💧 Siku
+</label>
+
+<label>
+<input type="checkbox" id="feedPoop">
+💩 Kupa
+</label>
+
+</div>
+
+<button class="primary" onclick="saveFeed()">
+Zapisz karmienie
+</button>
+
+</dialog>
+
+<script>
+
+let selectedChild = 0;
+
+let currentDate = new Date();
+
+let names = JSON.parse(
+  localStorage.getItem("twincare_names")
+) || ["Bliźniak 1", "Bliźniak 2"];
+
+let feeds = JSON.parse(
+  localStorage.getItem("twincare_feeds")
+) || {};
+
+function dateKey() {
+  return currentDate.toISOString().slice(0,10) + "_" + selectedChild;
+}
+
+function updateDate() {
+
+  document.getElementById("date").textContent =
+    currentDate.toLocaleDateString("pl-PL", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+
+}
+
+function selectChild(child) {
+
+  selectedChild = child;
+
+  document.getElementById("child0")
+    .classList.toggle("active", child === 0);
+
+  document.getElementById("child1")
+    .classList.toggle("active", child === 1);
+
+  render();
+
+}
+
+function changeDate(days) {
+
+  currentDate.setDate(
+    currentDate.getDate() + days
+  );
+
+  updateDate();
+  render();
+
+}
+
+function openFeed() {
+
+  const now = new Date();
+
+  document.getElementById("feedTime").value =
+    now.toTimeString().slice(0,5);
+
+  document.getElementById("feedDialog").showModal();
+
+}
+
+function saveFeed() {
+
+  const key = dateKey();
+
+  if (!feeds[key]) {
+    feeds[key] = [];
+  }
+
+  feeds[key].push({
+
+    time: document.getElementById("feedTime").value,
+
+    amount: Number(
+      document.getElementById("feedAmount").value
+    ),
+
+    method:
+      document.getElementById("method").value,
+
+    pee:
+      document.getElementById("feedPee").checked,
+
+    poop:
+      document.getElementById("feedPoop").checked
+
+  });
+
+  localStorage.setItem(
+    "twincare_feeds",
+    JSON.stringify(feeds)
+  );
+
+  document.getElementById("feedDialog").close();
+
+  document.getElementById("feedPee").checked = false;
+  document.getElementById("feedPoop").checked = false;
+
+  render();
+
+}
+
+function render() {
+
+  const list = feeds[dateKey()] || [];
+
+  let total = 0;
+  let pee = 0;
+  let poop = 0;
+
+  list.forEach(feed => {
+
+    total += feed.amount;
+
+    if (feed.pee) pee++;
+    if (feed.poop) poop++;
+
+  });
+
+  document.getElementById("total").textContent =
+    total + " ml";
+
+  document.getElementById("feeds").textContent =
+    list.length;
+
+  document.getElementById("pee").textContent =
+    pee;
+
+  document.getElementById("poop").textContent =
+    poop;
+
+  const container =
+    document.getElementById("feedList");
+
+  if (!list.length) {
+
+    container.innerHTML =
+      "<p style='color:#888'>Brak zapisanych karmień.</p>";
+
+    return;
+
+  }
+
+  container.innerHTML = list
+    .slice()
+    .reverse()
+    .map(feed => `
+
+      <div class="feed">
+
+        <div class="time">
+          ${feed.time}
+        </div>
+
+        <div>
+
+          <div class="amount">
+            ${feed.amount} ml
+          </div>
+
+          <div class="small">
+            ${feed.method}
+          </div>
+
+        </div>
+
+        <div>
+          ${feed.pee ? "💧" : ""}
+          ${feed.poop ? "💩" : ""}
+        </div>
+
+      </div>
+
+    `)
+    .join("");
+
+}
+
+function editNames() {
+
+  const first =
+    prompt("Imię pierwszego bliźniaka:", names[0]);
+
+  if (first === null) return;
+
+  const second =
+    prompt("Imię drugiego bliźniaka:", names[1]);
+
+  if (second === null) return;
+
+  names = [
+    first.trim() || "Bliźniak 1",
+    second.trim() || "Bliźniak 2"
+  ];
+
+  localStorage.setItem(
+    "twincare_names",
+    JSON.stringify(names)
+  );
+
+  document.getElementById("name0").textContent =
+    names[0];
+
+  document.getElementById("name1").textContent =
+    names[1];
+
+}
+
+document.getElementById("name0").textContent = names[0];
+document.getElementById("name1").textContent = names[1];
+
+updateDate();
+render();
+
+</script>
+
+</body>
+</html>
