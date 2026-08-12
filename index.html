@@ -5,174 +5,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#8fa99a">
 <title>TwinCare 🌿</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;background:#f4f0e8;color:#38433e;
-font-family:system-ui,-apple-system,"Segoe UI",sans-serif
-}
-.app{max-width:560px;margin:auto;padding-bottom:40px}
-header{
-display:flex;justify-content:space-between;align-items:center;
-padding:20px 18px 10px
-}
-.logo{font-size:27px;font-weight:750}
-.iconbtn,.arrow,.datebtn{
-border:0;background:none;color:#52635a
-}
-.iconbtn{font-size:21px}
-.arrow{font-size:28px}
-.datebar{
-display:flex;justify-content:space-between;
-align-items:center;padding:0 15px 15px
-}
-.datebtn{font-weight:700;font-size:15px}
-
-.tabs{
-display:flex;gap:7px;padding:0 14px 14px;
-overflow-x:auto
-}
-.tab{
-white-space:nowrap;border:1px solid #d8ddd8;
-background:#fbfaf6;border-radius:13px;
-padding:10px;color:#65716b
-}
-.tab.active{
-background:#dfe9e1;border-color:#91aa9b;font-weight:700
-}
-
-.screen{display:none;padding:0 16px}
-.screen.active{display:block}
-
-.children{display:flex;gap:8px;margin-bottom:14px}
-.child{
-flex:1;padding:12px;border-radius:15px;
-border:1px solid #d8ddd8;background:#fbfaf6;
-font-weight:700;color:#52605a
-}
-.child.active{
-background:#dfe9e1;border-color:#91aa9b
-}
-
-.grid{
-display:grid;grid-template-columns:1fr 1fr;gap:10px
-}
-
-.metric,.card{
-background:#fbfaf6;border:1px solid #e5e0d7;
-border-radius:17px;padding:15px;margin-bottom:12px
-}
-.metric{background:#e8eee9}
-.metric strong{
-display:block;font-size:23px;margin-top:4px
-}
-
-.small{font-size:12px;color:#7b837e}
-
-.primary,.secondary{
-border:0;border-radius:12px;padding:12px 14px;
-font-weight:700;font-size:14px
-}
-.primary{background:#8fa99a;color:white}
-.secondary{background:#e7ece8;color:#52635a}
-.full{width:100%}
-
-h1{font-size:23px;margin:0}
-h2{font-size:17px;margin:0 0 12px}
-
-.title{
-display:flex;justify-content:space-between;
-align-items:center;margin:3px 0 14px
-}
-
-.feed{
-display:grid;grid-template-columns:60px 1fr auto;
-gap:10px;align-items:center;padding:12px 0;
-border-bottom:1px solid #eee9e0
-}
-.feed:last-child{border:0}
-.time{font-weight:750}
-.amount{font-size:17px;font-weight:750}
-
-label{
-display:block;font-size:13px;
-font-weight:650;margin:10px 0
-}
-
-input,select{
-width:100%;display:block;margin-top:6px;
-padding:11px;border:1px solid #d7ddd8;
-border-radius:10px;background:white;
-font:inherit;color:#38433e
-}
-
-.row{
-display:grid;grid-template-columns:1fr 1fr;gap:9px
-}
-
-.checks{display:flex;gap:8px}
-.checks label{
-background:#eef2ee;padding:10px;
-border-radius:10px;flex:1
-}
-.checks input{
-width:auto;display:inline;margin:0 5px 0 0
-}
-
-.task{
-display:flex;gap:10px;align-items:center;
-padding:10px 0;border-bottom:1px solid #eee9e0
-}
-.task input{width:20px;margin:0}
-
-.event{
-border-left:4px solid #8fa99a;
-padding:12px 14px;background:#fbfaf6;
-border-radius:10px;margin-bottom:9px
-}
-
-.empty{
-text-align:center;color:#8a918d;padding:18px
-}
-
-.delete{
-border:0;background:none;color:#9a746d
-}
-
-.chart{
-height:220px;width:100%;
-background:white;border-radius:12px
-}
-
-.modal{
-border:0;border-radius:20px;padding:20px;
-width:min(92%,430px);background:#fbfaf6;
-color:#38433e
-}
-.modal::backdrop{background:#25302977}
-.modalhead{
-display:flex;justify-content:space-between
-}
-.close{
-border:0;background:none;font-size:24px
-}
+:root{--bg:#f4f0e8;--card:#fbfaf6;--sage:#8fa99a;--sage2:#dfe9e1;--sage3:#e8eee9;--text:#38433e;--muted:#7b837e;--border:#e5e0d7;--danger:#9a665f}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:560px;margin:auto;padding-bottom:42px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 18px 8px}
+.logo{font-size:27px;font-weight:760}.iconbtn,.arrow,.datebtn,.miniDateBtn{border:0;background:none;color:#52635a}.iconbtn{font-size:21px}
+.datebar{display:grid;grid-template-columns:34px 1fr 34px 34px;align-items:center;gap:2px;padding:0 14px 14px}
+.arrow{font-size:27px;padding:2px}.datebtn{font-weight:700;font-size:15px;text-align:center;padding:8px 2px}.miniDateBtn{font-size:18px;padding:5px;line-height:1}
+.tabs{display:flex;gap:7px;padding:0 14px 14px;overflow-x:auto}.tab{white-space:nowrap;border:1px solid #d8ddd8;background:var(--card);border-radius:13px;padding:10px;color:#65716b}.tab.active{background:var(--sage2);border-color:#91aa9b;font-weight:700}
+.screen{display:none;padding:0 16px}.screen.active{display:block}
+.children{display:flex;gap:8px;margin-bottom:14px}.child{flex:1;padding:11px;border-radius:15px;border:1px solid #d8ddd8;background:var(--card);font-weight:700;color:#52605a;display:flex;align-items:center;justify-content:center;gap:6px}.child.active{background:var(--sage2);border-color:#91aa9b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric,.card{background:var(--card);border:1px solid var(--border);border-radius:17px;padding:15px;margin-bottom:12px}.metric{background:var(--sage3)}.metric strong{display:block;font-size:23px;margin-top:4px}
+.small{font-size:12px;color:var(--muted)}.primary,.secondary,.dangerBtn{border:0;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14px}.primary{background:var(--sage);color:white}.secondary{background:#e7ece8;color:#52635a}.dangerBtn{background:#f1e3e0;color:var(--danger)}.full{width:100%}
+h1{font-size:23px;margin:0}h2{font-size:17px;margin:0 0 12px}.title{display:flex;justify-content:space-between;align-items:center;margin:3px 0 14px;gap:10px}
+.feed{display:grid;grid-template-columns:58px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #eee9e0}.feed:last-child{border:0}.time{font-weight:760}.amount{font-size:17px;font-weight:760}
+.feedActions{display:flex;gap:4px;justify-content:flex-start;margin-top:5px}.tinyBtn{border:0;background:#edf0ec;border-radius:9px;padding:5px 7px;font-size:12px;color:#58635d}.tinyBtn.danger{color:var(--danger);background:#f4e8e5}
+label{display:block;font-size:13px;font-weight:650;margin:10px 0}input,select{width:100%;display:block;margin-top:6px;padding:11px;border:1px solid #d7ddd8;border-radius:10px;background:white;font:inherit;color:var(--text)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}.checks{display:flex;gap:8px}.checks label{background:#eef2ee;padding:10px;border-radius:10px;flex:1}.checks input{width:auto;display:inline;margin:0 5px 0 0}
+.task{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eee9e0}.task input{width:20px;margin:0}.task .taskName{flex:1}.taskBtns{display:flex;gap:5px}
+.event{border-left:4px solid var(--sage);padding:12px 14px;background:var(--card);border-radius:10px;margin-bottom:9px}.empty{text-align:center;color:#8a918d;padding:18px}
+.chartWrap{overflow-x:auto;padding-bottom:4px}.chartSvg{width:100%;min-width:320px;height:250px;background:white;border-radius:12px}
+.profileCard{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}.avatar{width:72px;height:72px;border-radius:22px;background:var(--sage2);display:flex;align-items:center;justify-content:center;font-size:38px;overflow:hidden;border:1px solid #cfdacf}.avatar img{width:100%;height:100%;object-fit:cover}
+.profileMeta strong{font-size:18px}.profileStats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.profileStat{background:#eef2ee;border-radius:12px;padding:9px}
+.iconGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px}.iconChoice{border:1px solid #d8ddd8;background:white;border-radius:11px;padding:8px;font-size:24px}.iconChoice.active{background:var(--sage2);border-color:#91aa9b}
+.calendarHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.calendarGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.calDow{text-align:center;font-size:11px;color:var(--muted);padding:3px}.calDay{aspect-ratio:1/1;border:1px solid #e1ddd4;background:#fff;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-size:13px}.calDay.other{opacity:.32}.calDay.today{outline:2px solid var(--sage)}.calDay.selected{background:var(--sage2);border-color:#91aa9b}.dot{width:6px;height:6px;border-radius:50%;background:var(--sage);position:absolute;bottom:6px}
+.modal{border:0;border-radius:20px;padding:20px;width:min(92%,430px);background:var(--card);color:var(--text);max-height:88vh;overflow:auto}.modal::backdrop{background:#25302977}.modalhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.close{border:0;background:none;font-size:24px}
+.photoPreview{width:96px;height:96px;border-radius:22px;background:#eef2ee;display:flex;align-items:center;justify-content:center;font-size:40px;overflow:hidden;margin:8px auto}.photoPreview img{width:100%;height:100%;object-fit:cover}.note{font-size:12px;color:var(--muted);margin-top:5px}
+@media(max-width:390px){.tabs{gap:5px}.tab{padding:9px 8px;font-size:12px}.profileCard{grid-template-columns:62px 1fr}.avatar{width:62px;height:62px}}
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
-<header>
-<div class="logo">TwinCare 🌿</div>
-<button class="iconbtn" id="settings">⚙️</button>
-</header>
+<header><div class="logo">TwinCare 🌿</div><button class="iconbtn" id="settings">⚙️</button></header>
 
 <div class="datebar">
 <button class="arrow" id="prev">‹</button>
 <button class="datebtn" id="dateBtn"></button>
 <button class="arrow" id="next">›</button>
+<button class="miniDateBtn" id="calendarPickBtn" aria-label="Wybierz datę">📅</button>
 <input id="datePick" type="date" hidden>
 </div>
 
@@ -184,992 +57,189 @@ border:0;background:none;font-size:24px
 </div>
 
 <section id="care" class="screen active">
-
 <div class="children">
-<button class="child active" data-child="0">
-👶 <span></span>
-</button>
-<button class="child" data-child="1">
-👶 <span></span>
-</button>
+<button class="child active" data-child="0"><span class="childIcon"></span><span class="childLabel"></span></button>
+<button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
 </div>
-
+<div class="card profileCard" id="profilePreview"></div>
 <div class="grid" id="summary"></div>
-
-<button class="primary full" id="addFeed">
-＋ Dodaj karmienie
-</button>
-
-<div class="card" style="margin-top:12px">
-<h2>Historia dnia</h2>
-<div id="feedList"></div>
-</div>
-
+<button class="primary full" id="addFeed">＋ Dodaj karmienie</button>
+<div class="card" style="margin-top:12px"><h2>Historia dnia</h2><div id="feedList"></div></div>
 </section>
-
 
 <section id="growth" class="screen">
-
-<div class="title">
-<div>
-<h1>Waga i wzrost</h1>
-<div class="small childName"></div>
-</div>
-
-<button class="primary" id="addMeasure">
-＋ Pomiar
-</button>
-</div>
-
-<div class="card">
-<h2>Wykres wagi</h2>
-<div id="chart"></div>
-</div>
-
-<div class="card">
-<h2>Historia pomiarów</h2>
-<div id="measureList"></div>
-</div>
-
+<div class="title"><div><h1>Waga i wzrost</h1><div class="small childName"></div></div><button class="primary" id="addMeasure">＋ Pomiar</button></div>
+<div class="card"><h2>Wykres wagi</h2><div class="chartWrap"><div id="chart"></div></div></div>
+<div class="card"><h2>Historia pomiarów</h2><div id="measureList"></div></div>
 </section>
-
 
 <section id="hygiene" class="screen">
-
-<div class="title">
-<div>
-<h1>Pielęgnacja</h1>
-<div class="small childName"></div>
-</div>
-</div>
-
-<div class="card">
-<h2>Pielęgnacja</h2>
-<div id="careTasks"></div>
-<button class="secondary full" id="newCare">
-＋ Dodaj czynność
-</button>
-</div>
-
-<div class="card">
-<h2>Leki i suplementy</h2>
-<div id="medTasks"></div>
-<button class="secondary full" id="newMed">
-＋ Dodaj lek / suplement
-</button>
-</div>
-
+<div class="title"><div><h1>Pielęgnacja</h1><div class="small childName"></div></div></div>
+<div class="card"><h2>Pielęgnacja</h2><div id="careTasks"></div><button class="secondary full" id="newCare">＋ Dodaj czynność</button></div>
+<div class="card"><h2>Leki i suplementy</h2><div id="medTasks"></div><button class="secondary full" id="newMed">＋ Dodaj lek / suplement</button></div>
 </section>
-
 
 <section id="calendar" class="screen">
-
-<div class="title">
-<div>
-<h1>Kalendarz</h1>
-<div class="small">
-Wizyty i ważne wydarzenia
+<div class="title"><div><h1>Kalendarz</h1><div class="small">Wizyty i ważne wydarzenia</div></div><button class="primary" id="newEvent">＋ Wydarzenie</button></div>
+<div class="card">
+<div class="calendarHead"><button class="tinyBtn" id="prevMonth">‹</button><strong id="monthLabel"></strong><button class="tinyBtn" id="nextMonth">›</button></div>
+<div class="calendarGrid" id="calendarGrid"></div>
 </div>
-</div>
-
-<button class="primary" id="newEvent">
-＋ Wydarzenie
-</button>
-</div>
-
-<div id="eventList"></div>
-
+<div class="card"><h2 id="eventsTitle">Wydarzenia</h2><div id="eventList"></div></div>
 </section>
-
 </div>
-
 
 <dialog id="feedModal" class="modal">
-
-<div class="modalhead">
-<h2>Dodaj karmienie</h2>
-<button class="close" data-close="feedModal">×</button>
-</div>
-
-<label>
-Godzina
-<input id="feedTime" type="time">
-</label>
-
-<label>
-Ilość (ml)
-<input id="feedAmount" type="number" min="0" step="5" value="90">
-</label>
-
-<label>
-Sposób karmienia
-
-<select id="feedMethod">
-<option>Mleko modyfikowane</option>
-<option>Pierś</option>
-<option>Odciągane mleko</option>
-</select>
-
-</label>
-
-<div class="checks">
-
-<label>
-<input id="feedPee" type="checkbox">
-💧 Siku
-</label>
-
-<label>
-<input id="feedPoop" type="checkbox">
-💩 Kupa
-</label>
-
-</div>
-
-<button class="primary full" id="saveFeed">
-Zapisz karmienie
-</button>
-
+<div class="modalhead"><h2 id="feedModalTitle">Dodaj karmienie</h2><button class="close" data-close="feedModal">×</button></div>
+<label>Godzina<input id="feedTime" type="time"></label>
+<label>Ilość (ml)<input id="feedAmount" type="number" min="0" step="5" value="90"></label>
+<label>Sposób karmienia<select id="feedMethod"><option>Mleko modyfikowane</option><option>Pierś</option><option>Odciągane mleko</option></select></label>
+<div class="checks"><label><input id="feedPee" type="checkbox">💧 Siku</label><label><input id="feedPoop" type="checkbox">💩 Kupa</label></div>
+<button class="primary full" id="saveFeed">Zapisz karmienie</button>
 </dialog>
-
 
 <dialog id="measureModal" class="modal">
-
-<div class="modalhead">
-<h2>Dodaj pomiar</h2>
-<button class="close" data-close="measureModal">×</button>
-</div>
-
-<label>
-Data
-<input id="measureDate" type="date">
-</label>
-
-<div class="row">
-
-<label>
-Waga (kg)
-<input id="weight" type="number" step=".01">
-</label>
-
-<label>
-Wzrost (cm)
-<input id="height" type="number" step=".1">
-</label>
-
-</div>
-
-<button class="primary full" id="saveMeasure">
-Zapisz pomiar
-</button>
-
+<div class="modalhead"><h2>Dodaj pomiar</h2><button class="close" data-close="measureModal">×</button></div>
+<label>Data<input id="measureDate" type="date"></label>
+<div class="row"><label>Waga (kg)<input id="weight" type="number" step=".01"></label><label>Wzrost (cm)<input id="height" type="number" step=".1"></label></div>
+<button class="primary full" id="saveMeasure">Zapisz pomiar</button>
 </dialog>
-
 
 <dialog id="eventModal" class="modal">
-
-<div class="modalhead">
-<h2>Dodaj wydarzenie</h2>
-<button class="close" data-close="eventModal">×</button>
-</div>
-
-<label>
-Data
-<input id="eventDate" type="date">
-</label>
-
-<label>
-Godzina
-<input id="eventTime" type="time">
-</label>
-
-<label>
-Nazwa
-<input id="eventName" placeholder="np. Pediatra">
-</label>
-
-<button class="primary full" id="saveEvent">
-Zapisz wydarzenie
-</button>
-
+<div class="modalhead"><h2>Dodaj wydarzenie</h2><button class="close" data-close="eventModal">×</button></div>
+<label>Data<input id="eventDate" type="date"></label><label>Godzina<input id="eventTime" type="time"></label><label>Nazwa<input id="eventName" placeholder="np. Pediatra"></label>
+<button class="primary full" id="saveEvent">Zapisz wydarzenie</button>
 </dialog>
-
 
 <dialog id="settingsModal" class="modal">
-
-<div class="modalhead">
-<h2>Profile bliźniąt</h2>
-<button class="close" data-close="settingsModal">×</button>
-</div>
-
-<label>
-Imię pierwszego dziecka
-<input id="name0">
-</label>
-
-<label>
-Imię drugiego dziecka
-<input id="name1">
-</label>
-
-<button class="primary full" id="saveNames">
-Zapisz imiona
-</button>
-
+<div class="modalhead"><h2>Profile bliźniąt</h2><button class="close" data-close="settingsModal">×</button></div>
+<p class="note">Kliknij profil, aby uzupełnić dane dziecka.</p>
+<button class="secondary full" id="editProfile0"></button>
+<button class="secondary full" id="editProfile1" style="margin-top:8px"></button>
 </dialog>
 
+<dialog id="profileModal" class="modal">
+<div class="modalhead"><h2>Profil dziecka</h2><button class="close" data-close="profileModal">×</button></div>
+<div class="photoPreview" id="photoPreview"></div>
+<label>Zdjęcie<input id="photoInput" type="file" accept="image/*"></label>
+<label>Imię<input id="profileName"></label>
+<label>Data urodzenia<input id="birthDate" type="date"></label>
+<label>Godzina urodzenia<input id="birthTime" type="time"></label>
+<div><div class="small">Ikonka obok imienia</div><div class="iconGrid" id="iconGrid"></div></div>
+<button class="primary full" id="saveProfile">Zapisz profil</button>
+</dialog>
 
 <script>
+const STORAGE="twincare_v3", OLD="twincare_v2";
+const icons=["👶","👶🏻","👶🏼","👶🏽","👶🏾","👶🏿","👦","👦🏻","👦🏼","👦🏽","👦🏾","👦🏿","👧","👧🏻","👧🏼","👧🏽","👧🏾","👧🏿","💙","🩷"];
 
-const STORAGE = "twincare_v2";
-
-let state =
-JSON.parse(localStorage.getItem(STORAGE) || "null") || {
-names:["Bliźniak 1","Bliźniak 2"],
-feeds:{},
-measurements:[[],[]],
-tasks:[[],[]],
-meds:[[],[]],
-events:[]
-};
-
-let child = 0;
-
-let selectedDate =
-new Date().toISOString().slice(0,10);
-
-const $ = id =>
-document.getElementById(id);
-
-function save(){
-localStorage.setItem(
-STORAGE,
-JSON.stringify(state)
-);
+function migrate(){
+ const v3=JSON.parse(localStorage.getItem(STORAGE)||"null"); if(v3)return v3;
+ const v2=JSON.parse(localStorage.getItem(OLD)||"null");
+ if(v2)return {names:v2.names||["Bliźniak 1","Bliźniak 2"],profiles:[{icon:"👶",birthDate:"",birthTime:""},{icon:"👶",birthDate:"",birthTime:""}],feeds:v2.feeds||{},measurements:v2.measurements||[[],[]],tasks:v2.tasks||[[],[]],meds:v2.meds||[[],[]],taskChecks:{},medChecks:{},events:v2.events||[]};
+ return {names:["Bliźniak 1","Bliźniak 2"],profiles:[{icon:"👶",birthDate:"",birthTime:""},{icon:"👶",birthDate:"",birthTime:""}],feeds:{},measurements:[[],[]],tasks:[[],[]],meds:[[],[]],taskChecks:{},medChecks:{},events:[]};
 }
+let state=migrate(); localStorage.setItem(STORAGE,JSON.stringify(state));
+let child=0, selectedDate=new Date().toISOString().slice(0,10), editFeedIndex=null, profileEditing=0, chosenIcon="👶", selectedCalendarDay=selectedDate;
+let calendarMonth=new Date(); calendarMonth.setDate(1);
+const $=id=>document.getElementById(id), save=()=>localStorage.setItem(STORAGE,JSON.stringify(state)), dayKey=()=>selectedDate+"_"+child;
+const taskCheckKey=(type,date,c,i)=>`${type}_${date}_${c}_${i}`;
+const prettyDate=d=>new Date(d+"T12:00:00").toLocaleDateString("pl-PL",{day:"numeric",month:"long",year:"numeric"});
+const shortDate=d=>new Date(d+"T12:00:00").toLocaleDateString("pl-PL",{day:"2-digit",month:"2-digit"});
+const timeToMin=t=>{if(!t)return 9999;const [h,m]=t.split(":").map(Number);return h*60+m};
 
-function dayKey(){
-return selectedDate + "_" + child;
+function latestMeasurement(){const a=(state.measurements[child]||[]).slice().filter(x=>x.date).sort((x,y)=>x.date.localeCompare(y.date));return a.length?a[a.length-1]:null}
+function ageText(p){
+ if(!p.birthDate)return"Brak daty urodzenia";
+ const birth=new Date(p.birthDate+"T"+(p.birthTime||"00:00")+":00"), now=new Date(); if(birth>now)return"Data urodzenia jest w przyszłości";
+ const days=Math.floor((now-birth)/86400000), weeks=Math.floor(days/7);
+ if(days<14)return`${days} dni`; if(days<60)return`${weeks} tyg. ${days%7} dni`;
+ let months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth()), anchor=new Date(birth); anchor.setMonth(anchor.getMonth()+months);
+ if(anchor>now){months--;anchor=new Date(birth);anchor.setMonth(anchor.getMonth()+months)}
+ const extra=Math.floor((now-anchor)/86400000); if(months<24)return`${months} mies. ${extra} dni`; return`${Math.floor(months/12)} l. ${months%12} mies.`;
 }
-
-function prettyDate(date){
-
-return new Date(date+"T12:00:00")
-.toLocaleDateString("pl-PL",{
-day:"numeric",
-month:"long",
-year:"numeric"
-});
-
-}
-
-
 function renderNames(){
-
-document
-.querySelectorAll(".child span")
-.forEach((el,i)=>{
-el.textContent = state.names[i];
-});
-
-document
-.querySelectorAll(".child")
-.forEach((el,i)=>{
-el.classList.toggle(
-"active",
-i === child
-);
-});
-
-document
-.querySelectorAll(".childName")
-.forEach(el=>{
-el.textContent = state.names[child];
-});
-
+ document.querySelectorAll(".child").forEach((el,i)=>{el.classList.toggle("active",i===child);el.querySelector(".childLabel").textContent=state.names[i];el.querySelector(".childIcon").textContent=state.profiles[i]?.icon||"👶"});
+ document.querySelectorAll(".childName").forEach(el=>el.textContent=state.names[child]);
 }
-
-
+function renderProfilePreview(){
+ const p=state.profiles[child]||{}, m=latestMeasurement(), box=$("profilePreview");
+ getPhoto(child).then(photo=>{box.innerHTML=`<div class="avatar">${photo?`<img src="${photo}" alt="Zdjęcie profilu">`:(p.icon||"👶")}</div><div class="profileMeta"><strong>${state.names[child]}</strong><div class="small">${ageText(p)}</div><div class="profileStats"><div class="profileStat"><div class="small">Aktualna waga</div><strong>${m?.weight?m.weight+" kg":"—"}</strong></div><div class="profileStat"><div class="small">Aktualny wzrost</div><strong>${m?.height?m.height+" cm":"—"}</strong></div></div></div>`});
+}
+function sortedFeeds(){return (state.feeds[dayKey()]||[]).map((x,i)=>({...x,_i:i})).sort((a,b)=>timeToMin(a.time)-timeToMin(b.time))}
 function renderCare(){
-
-const feeds =
-state.feeds[dayKey()] || [];
-
-let total = 0;
-let pee = 0;
-let poop = 0;
-
-feeds.forEach(feed=>{
-
-total += Number(feed.amount);
-
-if(feed.pee) pee++;
-if(feed.poop) poop++;
-
-});
-
-const average =
-feeds.length
-? Math.round(total / feeds.length)
-: 0;
-
-$("summary").innerHTML = `
-
-<div class="metric">
-🍼
-<strong>${total} ml</strong>
-<span class="small">${feeds.length} karmień</span>
-</div>
-
-<div class="metric">
-⌀
-<strong>${average} ml</strong>
-<span class="small">średnio</span>
-</div>
-
-<div class="metric">
-💧
-<strong>${pee}</strong>
-<span class="small">siku</span>
-</div>
-
-<div class="metric">
-💩
-<strong>${poop}</strong>
-<span class="small">kupy</span>
-</div>
-
-`;
-
-if(!feeds.length){
-
-$("feedList").innerHTML =
-'<div class="empty">Brak zapisów tego dnia.</div>';
-
-return;
-
+ const feeds=sortedFeeds(), total=feeds.reduce((s,x)=>s+Number(x.amount||0),0), pee=feeds.filter(x=>x.pee).length, poop=feeds.filter(x=>x.poop).length, avg=feeds.length?Math.round(total/feeds.length):0;
+ $("summary").innerHTML=`<div class="metric">🍼<strong>${total} ml</strong><span class="small">${feeds.length} karmień</span></div><div class="metric">⌀<strong>${avg} ml</strong><span class="small">średnio</span></div><div class="metric">💧<strong>${pee}</strong><span class="small">siku</span></div><div class="metric">💩<strong>${poop}</strong><span class="small">kupy</span></div>`;
+ $("feedList").innerHTML=feeds.length?feeds.map(f=>`<div class="feed"><div class="time">${f.time||"—"}</div><div><div class="amount">${f.amount} ml</div><div class="small">${f.method}</div><div class="feedActions"><button class="tinyBtn" data-edit-feed="${f._i}">✏️ Edytuj</button><button class="tinyBtn danger" data-delete-feed="${f._i}">🗑 Usuń</button></div></div><div>${f.pee?"💧":""}${f.poop?"💩":""}</div></div>`).join(""):`<div class="empty">Brak zapisów tego dnia.</div>`;
 }
-
-$("feedList").innerHTML =
-feeds
-.slice()
-.reverse()
-.map(feed=>`
-
-<div class="feed">
-
-<div class="time">
-${feed.time}
-</div>
-
-<div>
-
-<div class="amount">
-${feed.amount} ml
-</div>
-
-<div class="small">
-${feed.method}
-</div>
-
-</div>
-
-<div>
-${feed.pee ? "💧" : ""}
-${feed.poop ? "💩" : ""}
-</div>
-
-</div>
-
-`)
-.join("");
-
-}
-
-
 function renderGrowth(){
-
-const list =
-state.measurements[child]
-.slice()
-.sort((a,b)=>
-a.date.localeCompare(b.date)
-);
-
-if(!list.length){
-
-$("measureList").innerHTML =
-'<div class="empty">Brak pomiarów.</div>';
-
-$("chart").innerHTML =
-'<div class="empty">Wykres pojawi się po dodaniu pomiarów.</div>';
-
-return;
-
+ const list=(state.measurements[child]||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
+ $("measureList").innerHTML=list.length?list.map(i=>`<div class="task"><span>${prettyDate(i.date)}</span><strong style="margin-left:auto">${i.weight?i.weight+" kg":""}${i.height?" • "+i.height+" cm":""}</strong></div>`).join(""):`<div class="empty">Brak pomiarów.</div>`;
+ const valid=list.filter(x=>x.weight&&!isNaN(Number(x.weight))); if(!valid.length){$("chart").innerHTML='<div class="empty">Dodaj wagę, aby zobaczyć wykres.</div>';return}
+ const vals=valid.map(x=>Number(x.weight)), max=Math.max(...vals), min=Math.min(...vals), pad=.15, yMin=Math.max(0,min-pad), yMax=max+pad, W=520,H=240,L=48,R=18,T=18,B=46;
+ const x=i=>valid.length===1?(L+(W-R))/2:L+i*((W-R-L)/(valid.length-1)), y=v=>T+(yMax-v)*((H-B-T)/(yMax-yMin||1));
+ const pts=valid.map((d,i)=>`${x(i)},${y(Number(d.weight))}`).join(" ");
+ const dots=valid.map((d,i)=>`<circle cx="${x(i)}" cy="${y(Number(d.weight))}" r="4" fill="#8fa99a"/><text x="${x(i)}" y="${y(Number(d.weight))-10}" text-anchor="middle" font-size="11" fill="#38433e">${Number(d.weight).toFixed(2)} kg</text><text x="${x(i)}" y="${H-18}" text-anchor="middle" font-size="10" fill="#7b837e">${shortDate(d.date)}</text>`).join("");
+ $("chart").innerHTML=`<svg class="chartSvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Wykres wagi z datami i wartościami"><line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#ddd"/><line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#ddd"/><polyline points="${pts}" fill="none" stroke="#8fa99a" stroke-width="3"/>${dots}</svg>`;
 }
-
-$("measureList").innerHTML =
-list
-.slice()
-.reverse()
-.map(item=>`
-
-<div class="task">
-
-<span>
-${prettyDate(item.date)}
-</span>
-
-<strong style="margin-left:auto">
-
-${item.weight
-? item.weight+" kg"
-: ""}
-
-${item.height
-? " • "+item.height+" cm"
-: ""}
-
-</strong>
-
-</div>
-
-`)
-.join("");
-
-
-const weights =
-list.map(x=>Number(x.weight)||0);
-
-const valid =
-weights.filter(Boolean);
-
-if(!valid.length){
-
-$("chart").innerHTML =
-'<div class="empty">Dodaj wagę, aby zobaczyć wykres.</div>';
-
-return;
-
-}
-
-const max =
-Math.max(...valid);
-
-const min =
-Math.min(...valid);
-
-const points =
-list.map((item,index)=>{
-
-const value =
-Number(item.weight)||min;
-
-const x =
-list.length === 1
-? 50
-: 5 + index/(list.length-1)*90;
-
-const y =
-90 -
-((value-min)/(max-min || 1))*70;
-
-return `${x},${y}`;
-
-}).join(" ");
-
-$("chart").innerHTML = `
-
-<svg
-viewBox="0 0 100 100"
-width="100%"
-height="200"
-preserveAspectRatio="none">
-
-<line
-x1="5"
-y1="90"
-x2="95"
-y2="90"
-stroke="#ddd"/>
-
-<line
-x1="5"
-y1="20"
-x2="5"
-y2="90"
-stroke="#ddd"/>
-
-<polyline
-points="${points}"
-fill="none"
-stroke="#8fa99a"
-stroke-width="2"/>
-
-</svg>
-
-<div class="small">
-Zmiana wagi w kolejnych pomiarach
-</div>
-
-`;
-
-}
-
-
 function taskHTML(list,type){
-
-if(!list.length){
-
-return '<div class="empty">Brak pozycji.</div>';
-
+ if(!list.length)return'<div class="empty">Brak pozycji.</div>';
+ return list.map((item,index)=>{const checked=!!(type==="care"?state.taskChecks:state.medChecks)[taskCheckKey(type,selectedDate,child,index)];return`<div class="task"><input type="checkbox" data-task="${type}" data-index="${index}" ${checked?"checked":""}><span class="taskName">${item.name}</span><span class="taskBtns"><button class="tinyBtn" data-edit-task="${type}:${index}">✏️</button><button class="tinyBtn danger" data-delete-task="${type}:${index}">🗑</button></span></div>`}).join("");
 }
-
-return list.map((item,index)=>`
-
-<div class="task">
-
-<input
-type="checkbox"
-data-task="${type}"
-data-index="${index}"
-${item.done ? "checked" : ""}>
-
-<span>
-${item.name}
-</span>
-
-</div>
-
-`).join("");
-
+function renderTasks(){$("careTasks").innerHTML=taskHTML(state.tasks[child],"care");$("medTasks").innerHTML=taskHTML(state.meds[child],"med")}
+function renderCalendar(){
+ const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth(),first=new Date(y,m,1),start=(first.getDay()+6)%7,grid=[];
+ $("monthLabel").textContent=calendarMonth.toLocaleDateString("pl-PL",{month:"long",year:"numeric"});["Pn","Wt","Śr","Cz","Pt","So","Nd"].forEach(d=>grid.push(`<div class="calDow">${d}</div>`));
+ for(let i=0;i<42;i++){const d=new Date(y,m,1-start+i),iso=d.toISOString().slice(0,10),has=state.events.some(e=>e.date===iso),cls=["calDay"];if(d.getMonth()!==m)cls.push("other");if(iso===new Date().toISOString().slice(0,10))cls.push("today");if(iso===selectedCalendarDay)cls.push("selected");grid.push(`<button class="${cls.join(" ")}" data-calday="${iso}">${d.getDate()}${has?'<span class="dot"></span>':""}</button>`)}
+ $("calendarGrid").innerHTML=grid.join("");
 }
-
-
-function renderTasks(){
-
-$("careTasks").innerHTML =
-taskHTML(
-state.tasks[child],
-"care"
-);
-
-$("medTasks").innerHTML =
-taskHTML(
-state.meds[child],
-"med"
-);
-
-}
-
-
 function renderEvents(){
-
-const events =
-state.events
-.slice()
-.sort((a,b)=>
-(a.date+a.time)
-.localeCompare(b.date+b.time)
-);
-
-if(!events.length){
-
-$("eventList").innerHTML =
-'<div class="empty">Brak wydarzeń.</div>';
-
-return;
-
+ renderCalendar(); const all=state.events.slice().sort((a,b)=>(a.date+(a.time||"")).localeCompare(b.date+(b.time||""))), filtered=all.filter(e=>e.date===selectedCalendarDay);
+ $("eventsTitle").textContent=`Wydarzenia • ${prettyDate(selectedCalendarDay)}`;
+ $("eventList").innerHTML=filtered.length?filtered.map(e=>{const oi=state.events.indexOf(e);return`<div class="event"><strong>${e.name}</strong><div class="small">${e.time||"Bez godziny"}</div><button class="tinyBtn danger" data-delete-event="${oi}">Usuń</button></div>`}).join(""):`<div class="empty">Brak wydarzeń tego dnia.</div>`;
 }
+function render(){$("dateBtn").textContent=prettyDate(selectedDate);renderNames();renderProfilePreview();renderCare();renderGrowth();renderTasks();renderEvents()}
+function addTask(type){const name=prompt(type==="care"?"Nazwa czynności:":"Nazwa leku lub suplementu:");if(!name)return;(type==="care"?state.tasks[child]:state.meds[child]).push({name:name.trim()});save();render()}
 
-$("eventList").innerHTML =
-events.map((event,index)=>`
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(b.dataset.screen).classList.add("active")});
+document.querySelectorAll(".child").forEach(b=>b.onclick=()=>{child=Number(b.dataset.child);render()});
+$("prev").onclick=()=>{const d=new Date(selectedDate+"T12:00:00");d.setDate(d.getDate()-1);selectedDate=d.toISOString().slice(0,10);render()};
+$("next").onclick=()=>{const d=new Date(selectedDate+"T12:00:00");d.setDate(d.getDate()+1);selectedDate=d.toISOString().slice(0,10);render()};
+$("calendarPickBtn").onclick=()=>{$("datePick").value=selectedDate;$("datePick").showPicker?$("datePick").showPicker():$("datePick").click()};
+$("dateBtn").onclick=$("calendarPickBtn").onclick;
+$("datePick").onchange=e=>{selectedDate=e.target.value;selectedCalendarDay=selectedDate;const d=new Date(selectedDate+"T12:00:00");calendarMonth=new Date(d.getFullYear(),d.getMonth(),1);render()};
 
-<div class="event">
+$("addFeed").onclick=()=>{editFeedIndex=null;$("feedModalTitle").textContent="Dodaj karmienie";$("feedTime").value=new Date().toTimeString().slice(0,5);$("feedAmount").value=90;$("feedMethod").value="Mleko modyfikowane";$("feedPee").checked=false;$("feedPoop").checked=false;$("feedModal").showModal()};
+$("saveFeed").onclick=()=>{const entry={time:$("feedTime").value,amount:Number($("feedAmount").value),method:$("feedMethod").value,pee:$("feedPee").checked,poop:$("feedPoop").checked};state.feeds[dayKey()]=state.feeds[dayKey()]||[];if(editFeedIndex===null)state.feeds[dayKey()].push(entry);else state.feeds[dayKey()][editFeedIndex]=entry;save();$("feedModal").close();render()};
+$("feedList").onclick=e=>{const ed=e.target.closest("[data-edit-feed]"),del=e.target.closest("[data-delete-feed]");if(ed){editFeedIndex=Number(ed.dataset.editFeed);const x=state.feeds[dayKey()][editFeedIndex];$("feedModalTitle").textContent="Edytuj karmienie";$("feedTime").value=x.time;$("feedAmount").value=x.amount;$("feedMethod").value=x.method;$("feedPee").checked=!!x.pee;$("feedPoop").checked=!!x.poop;$("feedModal").showModal()}if(del&&confirm("Usunąć ten wpis?")){state.feeds[dayKey()].splice(Number(del.dataset.deleteFeed),1);save();render()}};
 
-<strong>
-${event.name}
-</strong>
+$("addMeasure").onclick=()=>{$("measureDate").value=selectedDate;$("measureModal").showModal()};
+$("saveMeasure").onclick=()=>{if(!$("weight").value&&!$("height").value)return;state.measurements[child].push({date:$("measureDate").value,weight:$("weight").value,height:$("height").value});save();$("measureModal").close();$("weight").value=$("height").value="";render()};
 
-<div class="small">
+$("newCare").onclick=()=>addTask("care");$("newMed").onclick=()=>addTask("med");
+document.addEventListener("change",e=>{if(e.target.dataset.task){const type=e.target.dataset.task,index=Number(e.target.dataset.index),store=type==="care"?state.taskChecks:state.medChecks;store[taskCheckKey(type,selectedDate,child,index)]=e.target.checked;save()}});
+document.addEventListener("click",e=>{const ed=e.target.closest("[data-edit-task]"),del=e.target.closest("[data-delete-task]");if(ed){const [type,i]=ed.dataset.editTask.split(":"),list=type==="care"?state.tasks[child]:state.meds[child],n=prompt("Nowa nazwa:",list[+i].name);if(n){list[+i].name=n.trim();save();render()}}if(del){const [type,i]=del.dataset.deleteTask.split(":");if(confirm("Usunąć tę pozycję?")){const list=type==="care"?state.tasks[child]:state.meds[child];list.splice(+i,1);save();render()}}});
 
-${prettyDate(event.date)}
+$("newEvent").onclick=()=>{$("eventDate").value=selectedCalendarDay;$("eventModal").showModal()};
+$("saveEvent").onclick=()=>{const name=$("eventName").value.trim();if(!name)return;state.events.push({date:$("eventDate").value,time:$("eventTime").value,name});save();selectedCalendarDay=$("eventDate").value;const d=new Date(selectedCalendarDay+"T12:00:00");calendarMonth=new Date(d.getFullYear(),d.getMonth(),1);$("eventModal").close();$("eventName").value="";$("eventTime").value="";render()};
+$("eventList").onclick=e=>{const b=e.target.closest("[data-delete-event]");if(b&&confirm("Usunąć wydarzenie?")){state.events.splice(Number(b.dataset.deleteEvent),1);save();render()}};
+$("calendarGrid").onclick=e=>{const b=e.target.closest("[data-calday]");if(!b)return;selectedCalendarDay=b.dataset.calday;renderEvents()};
+$("prevMonth").onclick=()=>{calendarMonth.setMonth(calendarMonth.getMonth()-1);renderEvents()};$("nextMonth").onclick=()=>{calendarMonth.setMonth(calendarMonth.getMonth()+1);renderEvents()};
 
-${event.time
-? " • "+event.time
-: ""}
+$("settings").onclick=()=>{$("editProfile0").textContent=`${state.profiles[0]?.icon||"👶"} ${state.names[0]}`;$("editProfile1").textContent=`${state.profiles[1]?.icon||"👶"} ${state.names[1]}`;$("settingsModal").showModal()};
+function openProfile(i){profileEditing=i;chosenIcon=state.profiles[i]?.icon||"👶";$("profileName").value=state.names[i];$("birthDate").value=state.profiles[i]?.birthDate||"";$("birthTime").value=state.profiles[i]?.birthTime||"";renderIconGrid();getPhoto(i).then(photo=>{$("photoPreview").innerHTML=photo?`<img src="${photo}" alt="Zdjęcie">`:chosenIcon});$("settingsModal").close();$("profileModal").showModal()}
+$("editProfile0").onclick=()=>openProfile(0);$("editProfile1").onclick=()=>openProfile(1);
+function renderIconGrid(){$("iconGrid").innerHTML=icons.map(icon=>`<button type="button" class="iconChoice ${icon===chosenIcon?"active":""}" data-icon="${icon}">${icon}</button>`).join("")}
+$("iconGrid").onclick=e=>{const b=e.target.closest("[data-icon]");if(!b)return;chosenIcon=b.dataset.icon;renderIconGrid();if(!$("photoPreview").querySelector("img"))$("photoPreview").textContent=chosenIcon};
+$("saveProfile").onclick=async()=>{state.names[profileEditing]=$("profileName").value.trim()||`Bliźniak ${profileEditing+1}`;state.profiles[profileEditing]={icon:chosenIcon,birthDate:$("birthDate").value,birthTime:$("birthTime").value};const file=$("photoInput").files[0];if(file)await savePhoto(profileEditing,file);save();$("profileModal").close();$("photoInput").value="";render()};
 
-</div>
+document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).close());
 
-<button
-class="delete"
-data-event="${index}">
-Usuń
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-function render(){
-
-$("dateBtn").textContent =
-prettyDate(selectedDate);
-
-renderNames();
-renderCare();
-renderGrowth();
-renderTasks();
-renderEvents();
-
-}
-
-
-document
-.querySelectorAll(".tab")
-.forEach(button=>{
-
-button.onclick = ()=>{
-
-document
-.querySelectorAll(".tab")
-.forEach(x=>
-x.classList.remove("active")
-);
-
-button.classList.add("active");
-
-document
-.querySelectorAll(".screen")
-.forEach(x=>
-x.classList.remove("active")
-);
-
-$(button.dataset.screen)
-.classList.add("active");
-
-};
-
-});
-
-
-document
-.querySelectorAll(".child")
-.forEach(button=>{
-
-button.onclick = ()=>{
-
-child =
-Number(button.dataset.child);
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open("TwinCareDB",1);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains("photos"))db.createObjectStore("photos")};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function savePhoto(i,file){const reader=new FileReader();const data=await new Promise((res,rej)=>{reader.onload=()=>res(reader.result);reader.onerror=rej;reader.readAsDataURL(file)});const db=await openDB();return new Promise((res,rej)=>{const tx=db.transaction("photos","readwrite");tx.objectStore("photos").put(data,String(i));tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}
+async function getPhoto(i){try{const db=await openDB();return await new Promise((res,rej)=>{const tx=db.transaction("photos","readonly"),r=tx.objectStore("photos").get(String(i));r.onsuccess=()=>res(r.result||null);r.onerror=()=>rej(r.error)})}catch{return null}}
 
 render();
-
-};
-
-});
-
-
-$("prev").onclick = ()=>{
-
-const date =
-new Date(selectedDate+"T12:00:00");
-
-date.setDate(
-date.getDate()-1
-);
-
-selectedDate =
-date.toISOString().slice(0,10);
-
-render();
-
-};
-
-
-$("next").onclick = ()=>{
-
-const date =
-new Date(selectedDate+"T12:00:00");
-
-date.setDate(
-date.getDate()+1
-);
-
-selectedDate =
-date.toISOString().slice(0,10);
-
-render();
-
-};
-
-
-$("dateBtn").onclick = ()=>{
-
-$("datePick").value =
-selectedDate;
-
-$("datePick").showPicker
-? $("datePick").showPicker()
-: $("datePick").click();
-
-};
-
-
-$("datePick").onchange = event=>{
-
-selectedDate =
-event.target.value;
-
-render();
-
-};
-
-
-$("addFeed").onclick = ()=>{
-
-$("feedTime").value =
-new Date()
-.toTimeString()
-.slice(0,5);
-
-$("feedModal").showModal();
-
-};
-
-
-$("saveFeed").onclick = ()=>{
-
-const key =
-dayKey();
-
-if(!state.feeds[key]){
-state.feeds[key] = [];
-}
-
-state.feeds[key].push({
-
-time:$("feedTime").value,
-
-amount:Number(
-$("feedAmount").value
-),
-
-method:
-$("feedMethod").value,
-
-pee:
-$("feedPee").checked,
-
-poop:
-$("feedPoop").checked
-
-});
-
-save();
-
-$("feedModal").close();
-
-$("feedPee").checked = false;
-$("feedPoop").checked = false;
-
-render();
-
-};
-
-
-$("addMeasure").onclick = ()=>{
-
-$("measureDate").value =
-selectedDate;
-
-$("measureModal").showModal();
-
-};
-
-
-$("saveMeasure").onclick = ()=>{
-
-if(
-!$("weight").value &&
-!$("height").value
-){
-return;
-}
-
-state.measurements[child].push({
-
-date:$("measureDate").value,
-
-weight:$("weight").value,
-
-height:$("height").value
-
-});
-
-save();
-
-$("measureModal").close();
-
-$("weight").value = "";
-$("height").value = "";
-
-render();
-
-};
-
-
-function addTask(type){
-
-const name =
-prompt(
-type === "care"
-? "Nazwa czynności:"
-: "Nazwa leku lub suplementu:"
-);
-
-if(!name) return;
-
-const list =
-type === "care"
-? state.tasks[child]
-: state.meds[child];
-
-list.push({
-name:name,
-done:false
-});
-
-save();
-render();
-
-}
-
-
-$("newCare").onclick =
-()=>addTask("care");
-
-$("newMed").onclick =
-()=>addTask("med");
-
-
-document.addEventListener(
-"change",
-event=>{
-
-if(!event.target.dataset.task)
-return;
-
-const list =
-event.target.dataset.task === "care"
-? state.tasks[child]
-: state.meds[child];
-
-const index =
-Number(
-event.target.dataset.index
-);
-
-list[index].done =
-event.target.checked;
-
-save();
-
-});
-
-
-$("newEvent").onclick = ()=>{
-
-$("eventDate").value =
-selectedDate;
-
-$("eventModal").showModal();
-
-};
-
-
-$("saveEvent").onclick = ()=>{
-
-const name =
-$("eventName").value.trim();
-
-if(!name) return;
-
-state.events.push({
-
-date:$("eventDate").value,
-
-time:$("eventTime").value,
-
-name:name
-
-});
-
-save();
-
-$("eventModal").close();
-
-$("eventName").value = "";
-$("eventTime").value = "";
-
-render();
-
-};
-
-
-$("settings").onclick = ()=>{
-
-$("name0").value =
-state.names[0];
-
-$("name1").value =
-state.names[1];
-
-$("settingsModal").showModal();
-
-};
-
-
-$("saveNames").onclick = ()=>{
-
-state.names = [
-
-$("name0").value.trim()
-|| "Bliźniak 1",
-
-$("name1").value.trim()
-|| "Bliźniak 2"
-
-];
-
-save();
-
-$("settingsModal").close();
-
-render();
-
-};
-
-
-document
-.querySelectorAll("[data-close]")
-.forEach(button=>{
-
-button.onclick = ()=>{
-
-$(button.dataset.close)
-.close();
-
-};
-
-});
-
-
-render();
-
 </script>
-
 </body>
 </html>
