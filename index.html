@@ -1,228 +1,161 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8fa99a">
 <title>TwinCare 🌿</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+margin:0;background:#f4f0e8;color:#38433e;
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+}
+.app{max-width:560px;margin:auto;padding-bottom:40px}
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 18px 10px
+}
+.logo{font-size:27px;font-weight:750}
+.iconbtn,.arrow,.datebtn{
+border:0;background:none;color:#52635a
+}
+.iconbtn{font-size:21px}
+.arrow{font-size:28px}
+.datebar{
+display:flex;justify-content:space-between;
+align-items:center;padding:0 15px 15px
+}
+.datebtn{font-weight:700;font-size:15px}
+
+.tabs{
+display:flex;gap:7px;padding:0 14px 14px;
+overflow-x:auto
+}
+.tab{
+white-space:nowrap;border:1px solid #d8ddd8;
+background:#fbfaf6;border-radius:13px;
+padding:10px;color:#65716b
+}
+.tab.active{
+background:#dfe9e1;border-color:#91aa9b;font-weight:700
 }
 
-body {
-  margin: 0;
-  background: #f4f0e8;
-  color: #38433e;
-  font-family: Arial, sans-serif;
+.screen{display:none;padding:0 16px}
+.screen.active{display:block}
+
+.children{display:flex;gap:8px;margin-bottom:14px}
+.child{
+flex:1;padding:12px;border-radius:15px;
+border:1px solid #d8ddd8;background:#fbfaf6;
+font-weight:700;color:#52605a
+}
+.child.active{
+background:#dfe9e1;border-color:#91aa9b
 }
 
-.app {
-  max-width: 520px;
-  margin: auto;
-  padding-bottom: 90px;
+.grid{
+display:grid;grid-template-columns:1fr 1fr;gap:10px
 }
 
-header {
-  padding: 24px 20px 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.metric,.card{
+background:#fbfaf6;border:1px solid #e5e0d7;
+border-radius:17px;padding:15px;margin-bottom:12px
+}
+.metric{background:#e8eee9}
+.metric strong{
+display:block;font-size:23px;margin-top:4px
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: bold;
+.small{font-size:12px;color:#7b837e}
+
+.primary,.secondary{
+border:0;border-radius:12px;padding:12px 14px;
+font-weight:700;font-size:14px
+}
+.primary{background:#8fa99a;color:white}
+.secondary{background:#e7ece8;color:#52635a}
+.full{width:100%}
+
+h1{font-size:23px;margin:0}
+h2{font-size:17px;margin:0 0 12px}
+
+.title{
+display:flex;justify-content:space-between;
+align-items:center;margin:3px 0 14px
 }
 
-.settings {
-  font-size: 22px;
-  background: none;
-  border: 0;
+.feed{
+display:grid;grid-template-columns:60px 1fr auto;
+gap:10px;align-items:center;padding:12px 0;
+border-bottom:1px solid #eee9e0
+}
+.feed:last-child{border:0}
+.time{font-weight:750}
+.amount{font-size:17px;font-weight:750}
+
+label{
+display:block;font-size:13px;
+font-weight:650;margin:10px 0
 }
 
-.date {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 18px 20px;
+input,select{
+width:100%;display:block;margin-top:6px;
+padding:11px;border:1px solid #d7ddd8;
+border-radius:10px;background:white;
+font:inherit;color:#38433e
 }
 
-.date button {
-  border: 0;
-  background: transparent;
-  font-size: 25px;
+.row{
+display:grid;grid-template-columns:1fr 1fr;gap:9px
 }
 
-.date strong {
-  font-size: 16px;
+.checks{display:flex;gap:8px}
+.checks label{
+background:#eef2ee;padding:10px;
+border-radius:10px;flex:1
+}
+.checks input{
+width:auto;display:inline;margin:0 5px 0 0
 }
 
-.children {
-  display: flex;
-  gap: 8px;
-  padding: 0 16px 15px;
+.task{
+display:flex;gap:10px;align-items:center;
+padding:10px 0;border-bottom:1px solid #eee9e0
+}
+.task input{width:20px;margin:0}
+
+.event{
+border-left:4px solid #8fa99a;
+padding:12px 14px;background:#fbfaf6;
+border-radius:10px;margin-bottom:9px
 }
 
-.child {
-  flex: 1;
-  padding: 13px;
-  border-radius: 15px;
-  border: 1px solid #d8ddd8;
-  background: #fbfaf6;
-  font-weight: bold;
+.empty{
+text-align:center;color:#8a918d;padding:18px
 }
 
-.child.active {
-  background: #dfe9e1;
-  border-color: #91aa9b;
+.delete{
+border:0;background:none;color:#9a746d
 }
 
-main {
-  padding: 0 16px;
+.chart{
+height:220px;width:100%;
+background:white;border-radius:12px
 }
 
-.card {
-  background: #fbfaf6;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 12px;
-  border: 1px solid #e5e0d7;
+.modal{
+border:0;border-radius:20px;padding:20px;
+width:min(92%,430px);background:#fbfaf6;
+color:#38433e
 }
-
-.summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.modal::backdrop{background:#25302977}
+.modalhead{
+display:flex;justify-content:space-between
 }
-
-.metric {
-  background: #e8eee9;
-  border-radius: 15px;
-  padding: 15px;
-}
-
-.metric strong {
-  display: block;
-  font-size: 23px;
-  margin-top: 5px;
-}
-
-.primary {
-  width: 100%;
-  border: 0;
-  border-radius: 13px;
-  padding: 15px;
-  background: #8fa99a;
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
-  margin-top: 14px;
-}
-
-.feed {
-  display: grid;
-  grid-template-columns: 65px 1fr auto;
-  gap: 10px;
-  align-items: center;
-}
-
-.feed + .feed {
-  border-top: 1px solid #eee9e0;
-  padding-top: 14px;
-  margin-top: 14px;
-}
-
-.time {
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.amount {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.small {
-  color: #7b837e;
-  font-size: 12px;
-  margin-top: 3px;
-}
-
-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(520px, 100%);
-  background: #fbfaf6;
-  border-top: 1px solid #ddd9d0;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 4px;
-}
-
-nav button {
-  border: 0;
-  background: none;
-  color: #69746e;
-  font-size: 20px;
-}
-
-nav span {
-  display: block;
-  font-size: 10px;
-  margin-top: 3px;
-}
-
-dialog {
-  border: 0;
-  border-radius: 20px;
-  padding: 20px;
-  width: min(92%, 420px);
-}
-
-dialog::backdrop {
-  background: #25302999;
-}
-
-label {
-  display: block;
-  margin: 12px 0;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 6px;
-  border: 1px solid #d8ddd8;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.checks {
-  display: flex;
-  gap: 10px;
-}
-
-.checks label {
-  background: #eef2ee;
-  padding: 10px;
-  border-radius: 10px;
-  flex: 1;
-}
-
-.checks input {
-  width: auto;
-}
-
-.close {
-  float: right;
-  border: 0;
-  background: none;
-  font-size: 23px;
+.close{
+border:0;background:none;font-size:24px
 }
 </style>
 </head>
@@ -232,337 +165,1008 @@ input, select {
 <div class="app">
 
 <header>
-  <div class="logo">TwinCare 🌿</div>
-  <button class="settings" onclick="editNames()">⚙️</button>
+<div class="logo">TwinCare 🌿</div>
+<button class="iconbtn" id="settings">⚙️</button>
 </header>
 
-<div class="date">
-  <button onclick="changeDate(-1)">‹</button>
-  <strong id="date"></strong>
-  <button onclick="changeDate(1)">›</button>
+<div class="datebar">
+<button class="arrow" id="prev">‹</button>
+<button class="datebtn" id="dateBtn"></button>
+<button class="arrow" id="next">›</button>
+<input id="datePick" type="date" hidden>
 </div>
+
+<div class="tabs">
+<button class="tab active" data-screen="care">🍼 Opieka</button>
+<button class="tab" data-screen="growth">📈 Waga i wzrost</button>
+<button class="tab" data-screen="hygiene">🧴 Pielęgnacja</button>
+<button class="tab" data-screen="calendar">📅 Kalendarz</button>
+</div>
+
+<section id="care" class="screen active">
 
 <div class="children">
-  <button class="child active" id="child0" onclick="selectChild(0)">
-    👶 <span id="name0">Bliźniak 1</span>
-  </button>
-
-  <button class="child" id="child1" onclick="selectChild(1)">
-    👶 <span id="name1">Bliźniak 2</span>
-  </button>
+<button class="child active" data-child="0">
+👶 <span></span>
+</button>
+<button class="child" data-child="1">
+👶 <span></span>
+</button>
 </div>
 
-<main>
+<div class="grid" id="summary"></div>
 
-<div class="summary">
-
-  <div class="metric">
-    🍼
-    <strong id="total">0 ml</strong>
-    <small>dzisiaj</small>
-  </div>
-
-  <div class="metric">
-    🍼
-    <strong id="feeds">0</strong>
-    <small>karmień</small>
-  </div>
-
-  <div class="metric">
-    💧
-    <strong id="pee">0</strong>
-    <small>siku</small>
-  </div>
-
-  <div class="metric">
-    💩
-    <strong id="poop">0</strong>
-    <small>kupy</small>
-  </div>
-
-</div>
-
-<button class="primary" onclick="openFeed()">
-  ＋ Dodaj karmienie
+<button class="primary full" id="addFeed">
+＋ Dodaj karmienie
 </button>
 
-<div class="card" style="margin-top:15px">
-  <h3>Dzisiejsze karmienia</h3>
-  <div id="feedList"></div>
+<div class="card" style="margin-top:12px">
+<h2>Historia dnia</h2>
+<div id="feedList"></div>
 </div>
 
-</main>
+</section>
 
-<nav>
-  <button>🍼<span>Opieka</span></button>
-  <button>📈<span>Waga</span></button>
-  <button>🧴<span>Pielęgnacja</span></button>
-  <button>📅<span>Kalendarz</span></button>
-</nav>
+
+<section id="growth" class="screen">
+
+<div class="title">
+<div>
+<h1>Waga i wzrost</h1>
+<div class="small childName"></div>
+</div>
+
+<button class="primary" id="addMeasure">
+＋ Pomiar
+</button>
+</div>
+
+<div class="card">
+<h2>Wykres wagi</h2>
+<div id="chart"></div>
+</div>
+
+<div class="card">
+<h2>Historia pomiarów</h2>
+<div id="measureList"></div>
+</div>
+
+</section>
+
+
+<section id="hygiene" class="screen">
+
+<div class="title">
+<div>
+<h1>Pielęgnacja</h1>
+<div class="small childName"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Pielęgnacja</h2>
+<div id="careTasks"></div>
+<button class="secondary full" id="newCare">
+＋ Dodaj czynność
+</button>
+</div>
+
+<div class="card">
+<h2>Leki i suplementy</h2>
+<div id="medTasks"></div>
+<button class="secondary full" id="newMed">
+＋ Dodaj lek / suplement
+</button>
+</div>
+
+</section>
+
+
+<section id="calendar" class="screen">
+
+<div class="title">
+<div>
+<h1>Kalendarz</h1>
+<div class="small">
+Wizyty i ważne wydarzenia
+</div>
+</div>
+
+<button class="primary" id="newEvent">
+＋ Wydarzenie
+</button>
+</div>
+
+<div id="eventList"></div>
+
+</section>
 
 </div>
 
-<dialog id="feedDialog">
 
-<button class="close" onclick="feedDialog.close()">×</button>
+<dialog id="feedModal" class="modal">
 
+<div class="modalhead">
 <h2>Dodaj karmienie</h2>
+<button class="close" data-close="feedModal">×</button>
+</div>
 
 <label>
 Godzina
-<input type="time" id="feedTime">
+<input id="feedTime" type="time">
 </label>
 
 <label>
-Ilość mleka (ml)
-<input type="number" id="feedAmount" value="90" min="0">
+Ilość (ml)
+<input id="feedAmount" type="number" min="0" step="5" value="90">
 </label>
 
 <label>
 Sposób karmienia
-<select id="method">
+
+<select id="feedMethod">
 <option>Mleko modyfikowane</option>
 <option>Pierś</option>
 <option>Odciągane mleko</option>
 </select>
+
 </label>
 
 <div class="checks">
 
 <label>
-<input type="checkbox" id="feedPee">
+<input id="feedPee" type="checkbox">
 💧 Siku
 </label>
 
 <label>
-<input type="checkbox" id="feedPoop">
+<input id="feedPoop" type="checkbox">
 💩 Kupa
 </label>
 
 </div>
 
-<button class="primary" onclick="saveFeed()">
+<button class="primary full" id="saveFeed">
 Zapisz karmienie
 </button>
 
 </dialog>
 
+
+<dialog id="measureModal" class="modal">
+
+<div class="modalhead">
+<h2>Dodaj pomiar</h2>
+<button class="close" data-close="measureModal">×</button>
+</div>
+
+<label>
+Data
+<input id="measureDate" type="date">
+</label>
+
+<div class="row">
+
+<label>
+Waga (kg)
+<input id="weight" type="number" step=".01">
+</label>
+
+<label>
+Wzrost (cm)
+<input id="height" type="number" step=".1">
+</label>
+
+</div>
+
+<button class="primary full" id="saveMeasure">
+Zapisz pomiar
+</button>
+
+</dialog>
+
+
+<dialog id="eventModal" class="modal">
+
+<div class="modalhead">
+<h2>Dodaj wydarzenie</h2>
+<button class="close" data-close="eventModal">×</button>
+</div>
+
+<label>
+Data
+<input id="eventDate" type="date">
+</label>
+
+<label>
+Godzina
+<input id="eventTime" type="time">
+</label>
+
+<label>
+Nazwa
+<input id="eventName" placeholder="np. Pediatra">
+</label>
+
+<button class="primary full" id="saveEvent">
+Zapisz wydarzenie
+</button>
+
+</dialog>
+
+
+<dialog id="settingsModal" class="modal">
+
+<div class="modalhead">
+<h2>Profile bliźniąt</h2>
+<button class="close" data-close="settingsModal">×</button>
+</div>
+
+<label>
+Imię pierwszego dziecka
+<input id="name0">
+</label>
+
+<label>
+Imię drugiego dziecka
+<input id="name1">
+</label>
+
+<button class="primary full" id="saveNames">
+Zapisz imiona
+</button>
+
+</dialog>
+
+
 <script>
 
-let selectedChild = 0;
+const STORAGE = "twincare_v2";
 
-let currentDate = new Date();
+let state =
+JSON.parse(localStorage.getItem(STORAGE) || "null") || {
+names:["Bliźniak 1","Bliźniak 2"],
+feeds:{},
+measurements:[[],[]],
+tasks:[[],[]],
+meds:[[],[]],
+events:[]
+};
 
-let names = JSON.parse(
-  localStorage.getItem("twincare_names")
-) || ["Bliźniak 1", "Bliźniak 2"];
+let child = 0;
 
-let feeds = JSON.parse(
-  localStorage.getItem("twincare_feeds")
-) || {};
+let selectedDate =
+new Date().toISOString().slice(0,10);
 
-function dateKey() {
-  return currentDate.toISOString().slice(0,10) + "_" + selectedChild;
+const $ = id =>
+document.getElementById(id);
+
+function save(){
+localStorage.setItem(
+STORAGE,
+JSON.stringify(state)
+);
 }
 
-function updateDate() {
-
-  document.getElementById("date").textContent =
-    currentDate.toLocaleDateString("pl-PL", {
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
-
+function dayKey(){
+return selectedDate + "_" + child;
 }
 
-function selectChild(child) {
+function prettyDate(date){
 
-  selectedChild = child;
-
-  document.getElementById("child0")
-    .classList.toggle("active", child === 0);
-
-  document.getElementById("child1")
-    .classList.toggle("active", child === 1);
-
-  render();
-
-}
-
-function changeDate(days) {
-
-  currentDate.setDate(
-    currentDate.getDate() + days
-  );
-
-  updateDate();
-  render();
+return new Date(date+"T12:00:00")
+.toLocaleDateString("pl-PL",{
+day:"numeric",
+month:"long",
+year:"numeric"
+});
 
 }
 
-function openFeed() {
 
-  const now = new Date();
+function renderNames(){
 
-  document.getElementById("feedTime").value =
-    now.toTimeString().slice(0,5);
+document
+.querySelectorAll(".child span")
+.forEach((el,i)=>{
+el.textContent = state.names[i];
+});
 
-  document.getElementById("feedDialog").showModal();
+document
+.querySelectorAll(".child")
+.forEach((el,i)=>{
+el.classList.toggle(
+"active",
+i === child
+);
+});
 
-}
-
-function saveFeed() {
-
-  const key = dateKey();
-
-  if (!feeds[key]) {
-    feeds[key] = [];
-  }
-
-  feeds[key].push({
-
-    time: document.getElementById("feedTime").value,
-
-    amount: Number(
-      document.getElementById("feedAmount").value
-    ),
-
-    method:
-      document.getElementById("method").value,
-
-    pee:
-      document.getElementById("feedPee").checked,
-
-    poop:
-      document.getElementById("feedPoop").checked
-
-  });
-
-  localStorage.setItem(
-    "twincare_feeds",
-    JSON.stringify(feeds)
-  );
-
-  document.getElementById("feedDialog").close();
-
-  document.getElementById("feedPee").checked = false;
-  document.getElementById("feedPoop").checked = false;
-
-  render();
+document
+.querySelectorAll(".childName")
+.forEach(el=>{
+el.textContent = state.names[child];
+});
 
 }
 
-function render() {
 
-  const list = feeds[dateKey()] || [];
+function renderCare(){
 
-  let total = 0;
-  let pee = 0;
-  let poop = 0;
+const feeds =
+state.feeds[dayKey()] || [];
 
-  list.forEach(feed => {
+let total = 0;
+let pee = 0;
+let poop = 0;
 
-    total += feed.amount;
+feeds.forEach(feed=>{
 
-    if (feed.pee) pee++;
-    if (feed.poop) poop++;
+total += Number(feed.amount);
 
-  });
+if(feed.pee) pee++;
+if(feed.poop) poop++;
 
-  document.getElementById("total").textContent =
-    total + " ml";
+});
 
-  document.getElementById("feeds").textContent =
-    list.length;
+const average =
+feeds.length
+? Math.round(total / feeds.length)
+: 0;
 
-  document.getElementById("pee").textContent =
-    pee;
+$("summary").innerHTML = `
 
-  document.getElementById("poop").textContent =
-    poop;
+<div class="metric">
+🍼
+<strong>${total} ml</strong>
+<span class="small">${feeds.length} karmień</span>
+</div>
 
-  const container =
-    document.getElementById("feedList");
+<div class="metric">
+⌀
+<strong>${average} ml</strong>
+<span class="small">średnio</span>
+</div>
 
-  if (!list.length) {
+<div class="metric">
+💧
+<strong>${pee}</strong>
+<span class="small">siku</span>
+</div>
 
-    container.innerHTML =
-      "<p style='color:#888'>Brak zapisanych karmień.</p>";
+<div class="metric">
+💩
+<strong>${poop}</strong>
+<span class="small">kupy</span>
+</div>
 
-    return;
+`;
 
-  }
+if(!feeds.length){
 
-  container.innerHTML = list
-    .slice()
-    .reverse()
-    .map(feed => `
+$("feedList").innerHTML =
+'<div class="empty">Brak zapisów tego dnia.</div>';
 
-      <div class="feed">
-
-        <div class="time">
-          ${feed.time}
-        </div>
-
-        <div>
-
-          <div class="amount">
-            ${feed.amount} ml
-          </div>
-
-          <div class="small">
-            ${feed.method}
-          </div>
-
-        </div>
-
-        <div>
-          ${feed.pee ? "💧" : ""}
-          ${feed.poop ? "💩" : ""}
-        </div>
-
-      </div>
-
-    `)
-    .join("");
+return;
 
 }
 
-function editNames() {
+$("feedList").innerHTML =
+feeds
+.slice()
+.reverse()
+.map(feed=>`
 
-  const first =
-    prompt("Imię pierwszego bliźniaka:", names[0]);
+<div class="feed">
 
-  if (first === null) return;
+<div class="time">
+${feed.time}
+</div>
 
-  const second =
-    prompt("Imię drugiego bliźniaka:", names[1]);
+<div>
 
-  if (second === null) return;
+<div class="amount">
+${feed.amount} ml
+</div>
 
-  names = [
-    first.trim() || "Bliźniak 1",
-    second.trim() || "Bliźniak 2"
-  ];
+<div class="small">
+${feed.method}
+</div>
 
-  localStorage.setItem(
-    "twincare_names",
-    JSON.stringify(names)
-  );
+</div>
 
-  document.getElementById("name0").textContent =
-    names[0];
+<div>
+${feed.pee ? "💧" : ""}
+${feed.poop ? "💩" : ""}
+</div>
 
-  document.getElementById("name1").textContent =
-    names[1];
+</div>
+
+`)
+.join("");
 
 }
 
-document.getElementById("name0").textContent = names[0];
-document.getElementById("name1").textContent = names[1];
 
-updateDate();
+function renderGrowth(){
+
+const list =
+state.measurements[child]
+.slice()
+.sort((a,b)=>
+a.date.localeCompare(b.date)
+);
+
+if(!list.length){
+
+$("measureList").innerHTML =
+'<div class="empty">Brak pomiarów.</div>';
+
+$("chart").innerHTML =
+'<div class="empty">Wykres pojawi się po dodaniu pomiarów.</div>';
+
+return;
+
+}
+
+$("measureList").innerHTML =
+list
+.slice()
+.reverse()
+.map(item=>`
+
+<div class="task">
+
+<span>
+${prettyDate(item.date)}
+</span>
+
+<strong style="margin-left:auto">
+
+${item.weight
+? item.weight+" kg"
+: ""}
+
+${item.height
+? " • "+item.height+" cm"
+: ""}
+
+</strong>
+
+</div>
+
+`)
+.join("");
+
+
+const weights =
+list.map(x=>Number(x.weight)||0);
+
+const valid =
+weights.filter(Boolean);
+
+if(!valid.length){
+
+$("chart").innerHTML =
+'<div class="empty">Dodaj wagę, aby zobaczyć wykres.</div>';
+
+return;
+
+}
+
+const max =
+Math.max(...valid);
+
+const min =
+Math.min(...valid);
+
+const points =
+list.map((item,index)=>{
+
+const value =
+Number(item.weight)||min;
+
+const x =
+list.length === 1
+? 50
+: 5 + index/(list.length-1)*90;
+
+const y =
+90 -
+((value-min)/(max-min || 1))*70;
+
+return `${x},${y}`;
+
+}).join(" ");
+
+$("chart").innerHTML = `
+
+<svg
+viewBox="0 0 100 100"
+width="100%"
+height="200"
+preserveAspectRatio="none">
+
+<line
+x1="5"
+y1="90"
+x2="95"
+y2="90"
+stroke="#ddd"/>
+
+<line
+x1="5"
+y1="20"
+x2="5"
+y2="90"
+stroke="#ddd"/>
+
+<polyline
+points="${points}"
+fill="none"
+stroke="#8fa99a"
+stroke-width="2"/>
+
+</svg>
+
+<div class="small">
+Zmiana wagi w kolejnych pomiarach
+</div>
+
+`;
+
+}
+
+
+function taskHTML(list,type){
+
+if(!list.length){
+
+return '<div class="empty">Brak pozycji.</div>';
+
+}
+
+return list.map((item,index)=>`
+
+<div class="task">
+
+<input
+type="checkbox"
+data-task="${type}"
+data-index="${index}"
+${item.done ? "checked" : ""}>
+
+<span>
+${item.name}
+</span>
+
+</div>
+
+`).join("");
+
+}
+
+
+function renderTasks(){
+
+$("careTasks").innerHTML =
+taskHTML(
+state.tasks[child],
+"care"
+);
+
+$("medTasks").innerHTML =
+taskHTML(
+state.meds[child],
+"med"
+);
+
+}
+
+
+function renderEvents(){
+
+const events =
+state.events
+.slice()
+.sort((a,b)=>
+(a.date+a.time)
+.localeCompare(b.date+b.time)
+);
+
+if(!events.length){
+
+$("eventList").innerHTML =
+'<div class="empty">Brak wydarzeń.</div>';
+
+return;
+
+}
+
+$("eventList").innerHTML =
+events.map((event,index)=>`
+
+<div class="event">
+
+<strong>
+${event.name}
+</strong>
+
+<div class="small">
+
+${prettyDate(event.date)}
+
+${event.time
+? " • "+event.time
+: ""}
+
+</div>
+
+<button
+class="delete"
+data-event="${index}">
+Usuń
+</button>
+
+</div>
+
+`).join("");
+
+}
+
+
+function render(){
+
+$("dateBtn").textContent =
+prettyDate(selectedDate);
+
+renderNames();
+renderCare();
+renderGrowth();
+renderTasks();
+renderEvents();
+
+}
+
+
+document
+.querySelectorAll(".tab")
+.forEach(button=>{
+
+button.onclick = ()=>{
+
+document
+.querySelectorAll(".tab")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+button.classList.add("active");
+
+document
+.querySelectorAll(".screen")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+$(button.dataset.screen)
+.classList.add("active");
+
+};
+
+});
+
+
+document
+.querySelectorAll(".child")
+.forEach(button=>{
+
+button.onclick = ()=>{
+
+child =
+Number(button.dataset.child);
+
+render();
+
+};
+
+});
+
+
+$("prev").onclick = ()=>{
+
+const date =
+new Date(selectedDate+"T12:00:00");
+
+date.setDate(
+date.getDate()-1
+);
+
+selectedDate =
+date.toISOString().slice(0,10);
+
+render();
+
+};
+
+
+$("next").onclick = ()=>{
+
+const date =
+new Date(selectedDate+"T12:00:00");
+
+date.setDate(
+date.getDate()+1
+);
+
+selectedDate =
+date.toISOString().slice(0,10);
+
+render();
+
+};
+
+
+$("dateBtn").onclick = ()=>{
+
+$("datePick").value =
+selectedDate;
+
+$("datePick").showPicker
+? $("datePick").showPicker()
+: $("datePick").click();
+
+};
+
+
+$("datePick").onchange = event=>{
+
+selectedDate =
+event.target.value;
+
+render();
+
+};
+
+
+$("addFeed").onclick = ()=>{
+
+$("feedTime").value =
+new Date()
+.toTimeString()
+.slice(0,5);
+
+$("feedModal").showModal();
+
+};
+
+
+$("saveFeed").onclick = ()=>{
+
+const key =
+dayKey();
+
+if(!state.feeds[key]){
+state.feeds[key] = [];
+}
+
+state.feeds[key].push({
+
+time:$("feedTime").value,
+
+amount:Number(
+$("feedAmount").value
+),
+
+method:
+$("feedMethod").value,
+
+pee:
+$("feedPee").checked,
+
+poop:
+$("feedPoop").checked
+
+});
+
+save();
+
+$("feedModal").close();
+
+$("feedPee").checked = false;
+$("feedPoop").checked = false;
+
+render();
+
+};
+
+
+$("addMeasure").onclick = ()=>{
+
+$("measureDate").value =
+selectedDate;
+
+$("measureModal").showModal();
+
+};
+
+
+$("saveMeasure").onclick = ()=>{
+
+if(
+!$("weight").value &&
+!$("height").value
+){
+return;
+}
+
+state.measurements[child].push({
+
+date:$("measureDate").value,
+
+weight:$("weight").value,
+
+height:$("height").value
+
+});
+
+save();
+
+$("measureModal").close();
+
+$("weight").value = "";
+$("height").value = "";
+
+render();
+
+};
+
+
+function addTask(type){
+
+const name =
+prompt(
+type === "care"
+? "Nazwa czynności:"
+: "Nazwa leku lub suplementu:"
+);
+
+if(!name) return;
+
+const list =
+type === "care"
+? state.tasks[child]
+: state.meds[child];
+
+list.push({
+name:name,
+done:false
+});
+
+save();
+render();
+
+}
+
+
+$("newCare").onclick =
+()=>addTask("care");
+
+$("newMed").onclick =
+()=>addTask("med");
+
+
+document.addEventListener(
+"change",
+event=>{
+
+if(!event.target.dataset.task)
+return;
+
+const list =
+event.target.dataset.task === "care"
+? state.tasks[child]
+: state.meds[child];
+
+const index =
+Number(
+event.target.dataset.index
+);
+
+list[index].done =
+event.target.checked;
+
+save();
+
+});
+
+
+$("newEvent").onclick = ()=>{
+
+$("eventDate").value =
+selectedDate;
+
+$("eventModal").showModal();
+
+};
+
+
+$("saveEvent").onclick = ()=>{
+
+const name =
+$("eventName").value.trim();
+
+if(!name) return;
+
+state.events.push({
+
+date:$("eventDate").value,
+
+time:$("eventTime").value,
+
+name:name
+
+});
+
+save();
+
+$("eventModal").close();
+
+$("eventName").value = "";
+$("eventTime").value = "";
+
+render();
+
+};
+
+
+$("settings").onclick = ()=>{
+
+$("name0").value =
+state.names[0];
+
+$("name1").value =
+state.names[1];
+
+$("settingsModal").showModal();
+
+};
+
+
+$("saveNames").onclick = ()=>{
+
+state.names = [
+
+$("name0").value.trim()
+|| "Bliźniak 1",
+
+$("name1").value.trim()
+|| "Bliźniak 2"
+
+];
+
+save();
+
+$("settingsModal").close();
+
+render();
+
+};
+
+
+document
+.querySelectorAll("[data-close]")
+.forEach(button=>{
+
+button.onclick = ()=>{
+
+$(button.dataset.close)
+.close();
+
+};
+
+});
+
+
 render();
 
 </script>
