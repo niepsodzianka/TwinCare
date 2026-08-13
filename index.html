@@ -195,9 +195,9 @@ body{
 
 
 <style>
-.profilePreviewShared{margin-top:2px}
-.menuDangerHint{font-size:11px;color:#8c6a63;margin-top:7px}
-#menuModal .dangerBtn{width:100%}
+.sharedProfileCard{margin-top:2px}
+#mainMenuModal .dangerBtn{width:100%}
+#mainMenuModal .note{line-height:1.45}
 </style>
 </head>
 <body>
@@ -255,7 +255,7 @@ body{
 <button class="child active" data-child="0"><span class="childIcon"></span><span class="childLabel"></span></button>
 <button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
 </div>
-<div class="card profileCard profilePreviewShared" id="profilePreview" data-profile-preview></div>
+<div class="card profileCard" id="profilePreview"></div>
 <div class="grid" id="summary"></div>
 <button class="primary full" id="addFeed">＋ Dodaj karmienie</button>
 <div class="card" style="margin-top:12px"><h2>Historia dnia</h2><div id="feedList"></div></div>
@@ -267,7 +267,7 @@ body{
 <button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
 </div>
 <div class="title"><div><h1>Waga i wzrost</h1><div class="small childName"></div></div><button class="primary" id="addMeasure">＋ Pomiar</button></div>
-<div class="card profileCard profilePreviewShared" data-profile-preview></div>
+<div class="card profileCard sharedProfileCard" data-shared-profile></div>
 <div class="card"><h2>Wykres wagi</h2><div class="chartWrap"><div id="chart"></div></div></div>
 <div class="card"><h2>Historia pomiarów</h2><div id="measureList"></div></div>
 </section>
@@ -278,7 +278,7 @@ body{
 <button class="child" data-child="1"><span class="childIcon"></span><span class="childLabel"></span></button>
 </div>
 <div class="title"><div><h1>Pielęgnacja</h1><div class="small childName"></div></div></div>
-<div class="card profileCard profilePreviewShared" data-profile-preview></div>
+<div class="card profileCard sharedProfileCard" data-shared-profile></div>
 <div class="card"><h2>Pielęgnacja</h2><div id="careTasks"></div><button class="secondary full" id="newCare">＋ Dodaj czynność</button></div>
 <div class="card"><h2>Leki i suplementy</h2><div id="medTasks"></div><button class="secondary full" id="newMed">＋ Dodaj lek / suplement</button></div>
 </section>
@@ -316,14 +316,14 @@ body{
 </dialog>
 
 
-<dialog id="menuModal" class="modal">
+<dialog id="mainMenuModal" class="modal">
   <div class="modalhead">
-    <h2 id="menuTitle">Menu</h2>
-    <button class="close" data-close="menuModal">×</button>
+    <h2 id="mainMenuTitle">Menu</h2>
+    <button class="close" data-close="mainMenuModal">×</button>
   </div>
-  <button class="secondary full" id="manageProfilesBtn">Profile dzieci</button>
-  <button class="dangerBtn full" id="clearHistoryBtn" style="margin-top:10px">Wyczyść historię zapisów</button>
-  <p class="note" id="clearHistoryNote">Usunie karmienia, pomiary, odhaczania i wydarzenia ze wszystkich dni. Nazwy, ikonki, zdjęcia oraz listy pielęgnacji i leków pozostaną.</p>
+  <button class="secondary full" id="openProfilesBtn">Profile dzieci</button>
+  <button class="dangerBtn full" id="clearAllBtn" style="margin-top:10px">Wyczyść historię zapisów</button>
+  <p class="note" id="clearAllNote">Usuwa karmienia, pomiary, odhaczania i wydarzenia ze wszystkich dni. Profile oraz listy pielęgnacji i leków pozostają.</p>
 </dialog>
 
 <dialog id="appSettingsModal" class="modal">
@@ -331,19 +331,19 @@ body{
     <h2 id="appSettingsTitle">Ustawienia aplikacji</h2>
     <button class="close" data-close="appSettingsModal">×</button>
   </div>
-  <label id="languageLabel">Język
-    <select id="languageSelect">
+  <label id="langLabel">Język
+    <select id="appLanguage">
       <option value="pl">Polski (PL)</option>
       <option value="en">English (EN)</option>
     </select>
   </label>
-  <label id="unitsLabel">Jednostki
-    <select id="unitsSelect">
+  <label id="unitLabel">Jednostki
+    <select id="appUnits">
       <option value="metric">Metryczne (kg / cm)</option>
       <option value="imperial">Imperialne (lb / in)</option>
     </select>
   </label>
-  <button class="primary full" id="saveAppSettings">Zapisz ustawienia</button>
+  <button class="primary full" id="saveAppSettingsBtn">Zapisz ustawienia</button>
 </dialog>
 
 <dialog id="settingsModal" class="modal">
@@ -469,7 +469,7 @@ $("eventList").onclick=e=>{const b=e.target.closest("[data-delete-event]");if(b&
 $("calendarGrid").onclick=e=>{const b=e.target.closest("[data-calday]");if(!b)return;selectedCalendarDay=b.dataset.calday;renderEvents()};
 $("prevMonth").onclick=()=>{calendarMonth.setMonth(calendarMonth.getMonth()-1);renderEvents()};$("nextMonth").onclick=()=>{calendarMonth.setMonth(calendarMonth.getMonth()+1);renderEvents()};
 
-$("settings").onclick=()=>{$("editProfile0").textContent=`${state.profiles[0]?.icon||"👶"} ${state.names[0]}`;$("editProfile1").textContent=`${state.profiles[1]?.icon||"👶"} ${state.names[1]}`;$("settingsModal").showModal()};
+
 function openProfile(i){profileEditing=i;chosenIcon=state.profiles[i]?.icon||"👶";$("profileName").value=state.names[i];$("birthDate").value=state.profiles[i]?.birthDate||"";$("birthTime").value=state.profiles[i]?.birthTime||"";renderIconGrid();getPhoto(i).then(photo=>{$("photoPreview").innerHTML=photo?`<img src="${photo}" alt="Zdjęcie">`:chosenIcon});$("settingsModal").close();$("profileModal").showModal()}
 $("editProfile0").onclick=()=>openProfile(0);$("editProfile1").onclick=()=>openProfile(1);
 function renderIconGrid(){$("iconGrid").innerHTML=icons.map(icon=>`<button type="button" class="iconChoice ${icon===chosenIcon?"active":""}" data-icon="${icon}">${icon}</button>`).join("")}
@@ -530,273 +530,210 @@ function goHome(){
 }
 document.querySelectorAll("[data-open-screen]").forEach(b=>b.addEventListener("click",()=>openModule(b.dataset.openScreen)));
 document.querySelectorAll("[data-home]").forEach(b=>b.addEventListener("click",goHome));
-$("homeMenu").addEventListener("click",goHome);
 
 
-// ===== TwinCare 0.5: menu, language, units, shared profile cards =====
-state.settings = state.settings || {language:"pl", units:"metric"};
-if(!state.settings.language) state.settings.language="pl";
-if(!state.settings.units) state.settings.units="metric";
+
+// ===== TwinCare 0.5.1 =====
+state.settings = state.settings || { language:"pl", units:"metric" };
+state.settings.language = state.settings.language || "pl";
+state.settings.units = state.settings.units || "metric";
 save();
 
-const I18N = {
+const translations = {
   pl:{
-    homeChoose:"WYBIERZ DZIECKO", care:"OPIEKA", growth:"WAGA I WZROST", hygiene:"PIELĘGNACJA", calendar:"KALENDARZ",
+    choose:"WYBIERZ DZIECKO", care:"OPIEKA", growth:"WAGA I WZROST", hygiene:"PIELĘGNACJA", calendar:"KALENDARZ",
     careSub:"Karmienie i pieluszki", growthSub:"Pomiary i wykresy", hygieneSub:"Toaleta, leki, suplementy", calendarSub:"Wizyty i ważne daty",
-    quote:"Małe kroki, wielkie chwile", back:"‹ STRONA GŁÓWNA",
-    currentWeight:"Aktualna waga", currentHeight:"Aktualny wzrost", noBirth:"Brak daty urodzenia",
-    today:"dzisiaj", feeds:"karmień", average:"średnio", pee:"siku", poop:"kupy", noRecords:"Brak zapisów tego dnia.",
-    edit:"Edytuj", delete:"Usuń", growthTitle:"Waga i wzrost", chartWeight:"Wykres wagi", measurementsHistory:"Historia pomiarów",
-    noMeasurements:"Brak pomiarów.", addWeightChart:"Dodaj wagę, aby zobaczyć wykres.",
-    careTitle:"Pielęgnacja", careSegment:"Pielęgnacja", meds:"Leki i suplementy", noItems:"Brak pozycji.",
-    calendarTitle:"Kalendarz", calendarSubhead:"Wizyty i ważne wydarzenia", events:"Wydarzenia", noEvents:"Brak wydarzeń tego dnia.", noTime:"Bez godziny",
-    addMeasurement:"＋ Pomiar", addFeed:"＋ Dodaj karmienie", addCare:"＋ Dodaj czynność", addMed:"＋ Dodaj lek / suplement", addEvent:"＋ Wydarzenie",
-    weightLabel:"Waga", heightLabel:"Wzrost",
+    quote:"Małe kroki, wielkie chwile", home:"‹ STRONA GŁÓWNA",
+    currentWeight:"Aktualna waga", currentHeight:"Aktualny wzrost",
     menu:"Menu", profiles:"Profile dzieci", clear:"Wyczyść historię zapisów",
-    clearNote:"Usunie karmienia, pomiary, odhaczania i wydarzenia ze wszystkich dni. Nazwy, ikonki, zdjęcia oraz listy pielęgnacji i leków pozostaną.",
-    settings:"Ustawienia aplikacji", language:"Język", units:"Jednostki", saveSettings:"Zapisz ustawienia",
-    profilesTitle:"Profile bliźniąt", profilesNote:"Kliknij profil, aby uzupełnić dane dziecka.",
-    profileTitle:"Profil dziecka", photo:"Zdjęcie", name:"Imię", birthDate:"Data urodzenia", birthTime:"Godzina urodzenia", icon:"Ikonka obok imienia", saveProfile:"Zapisz profil",
-    addFeedTitle:"Dodaj karmienie", time:"Godzina", amount:"Ilość (ml)", method:"Sposób karmienia", saveFeed:"Zapisz karmienie",
-    addMeasureTitle:"Dodaj pomiar", date:"Data", saveMeasure:"Zapisz pomiar",
-    addEventTitle:"Dodaj wydarzenie", eventName:"Nazwa", saveEvent:"Zapisz wydarzenie",
-    clearConfirm1:"Czy na pewno chcesz usunąć historię zapisów ze wszystkich dni?", clearConfirm2:"To działanie jest nieodwracalne. Potwierdzasz usunięcie historii?",
-    cleared:"Historia zapisów została wyczyszczona.",
-    futureBirth:"Data urodzenia jest w przyszłości"
+    clearNote:"Usuwa karmienia, pomiary, odhaczania i wydarzenia ze wszystkich dni. Profile oraz listy pielęgnacji i leków pozostają.",
+    appSettings:"Ustawienia aplikacji", language:"Język", units:"Jednostki", save:"Zapisz ustawienia",
+    noBirth:"Brak daty urodzenia", futureBirth:"Data urodzenia jest w przyszłości",
+    confirm1:"Czy na pewno chcesz usunąć historię zapisów ze wszystkich dni?",
+    confirm2:"To działanie jest nieodwracalne. Potwierdzasz usunięcie historii?",
+    cleared:"Historia zapisów została wyczyszczona."
   },
   en:{
-    homeChoose:"CHOOSE CHILD", care:"CARE", growth:"WEIGHT & HEIGHT", hygiene:"ROUTINE", calendar:"CALENDAR",
+    choose:"CHOOSE CHILD", care:"CARE", growth:"WEIGHT & HEIGHT", hygiene:"ROUTINE", calendar:"CALENDAR",
     careSub:"Feeding and diapers", growthSub:"Measurements and charts", hygieneSub:"Care, meds, supplements", calendarSub:"Visits and important dates",
-    quote:"Small steps, big moments", back:"‹ HOME",
-    currentWeight:"Current weight", currentHeight:"Current height", noBirth:"No birth date",
-    today:"today", feeds:"feeds", average:"average", pee:"wet", poop:"dirty", noRecords:"No records for this day.",
-    edit:"Edit", delete:"Delete", growthTitle:"Weight & height", chartWeight:"Weight chart", measurementsHistory:"Measurement history",
-    noMeasurements:"No measurements.", addWeightChart:"Add a weight measurement to see the chart.",
-    careTitle:"Routine", careSegment:"Care", meds:"Medicines & supplements", noItems:"No items.",
-    calendarTitle:"Calendar", calendarSubhead:"Visits and important events", events:"Events", noEvents:"No events for this day.", noTime:"No time",
-    addMeasurement:"＋ Measurement", addFeed:"＋ Add feeding", addCare:"＋ Add task", addMed:"＋ Add medicine / supplement", addEvent:"＋ Event",
-    weightLabel:"Weight", heightLabel:"Height",
+    quote:"Small steps, big moments", home:"‹ HOME",
+    currentWeight:"Current weight", currentHeight:"Current height",
     menu:"Menu", profiles:"Child profiles", clear:"Clear record history",
-    clearNote:"Removes feedings, measurements, daily checkmarks and events from all days. Names, icons, photos and care/medicine lists stay.",
-    settings:"App settings", language:"Language", units:"Units", saveSettings:"Save settings",
-    profilesTitle:"Twin profiles", profilesNote:"Tap a profile to edit the child's details.",
-    profileTitle:"Child profile", photo:"Photo", name:"Name", birthDate:"Date of birth", birthTime:"Time of birth", icon:"Icon next to name", saveProfile:"Save profile",
-    addFeedTitle:"Add feeding", time:"Time", amount:"Amount (ml)", method:"Feeding method", saveFeed:"Save feeding",
-    addMeasureTitle:"Add measurement", date:"Date", saveMeasure:"Save measurement",
-    addEventTitle:"Add event", eventName:"Name", saveEvent:"Save event",
-    clearConfirm1:"Are you sure you want to delete record history from all days?", clearConfirm2:"This cannot be undone. Confirm deletion?",
-    cleared:"Record history has been cleared.",
-    futureBirth:"Birth date is in the future"
+    clearNote:"Removes feedings, measurements, daily checkmarks and events from all days. Profiles and care/medicine lists remain.",
+    appSettings:"App settings", language:"Language", units:"Units", save:"Save settings",
+    noBirth:"No birth date", futureBirth:"Birth date is in the future",
+    confirm1:"Are you sure you want to delete record history from all days?",
+    confirm2:"This cannot be undone. Confirm deletion?",
+    cleared:"Record history has been cleared."
   }
 };
-const lang=()=>state.settings.language||"pl";
-const tr=k=>(I18N[lang()]&&I18N[lang()][k])||I18N.pl[k]||k;
-const isImperial=()=>state.settings.units==="imperial";
-const kgToLb=kg=>Number(kg)*2.2046226218;
-const cmToIn=cm=>Number(cm)/2.54;
-const lbToKg=lb=>Number(lb)/2.2046226218;
-const inToCm=inch=>Number(inch)*2.54;
-const fmtWeight=kg=>{
-  if(kg===""||kg===null||kg===undefined||isNaN(Number(kg))) return "—";
-  return isImperial()?`${kgToLb(kg).toFixed(2)} lb`:`${Number(kg).toFixed(2)} kg`;
-};
-const fmtHeight=cm=>{
-  if(cm===""||cm===null||cm===undefined||isNaN(Number(cm))) return "—";
-  return isImperial()?`${cmToIn(cm).toFixed(1)} in`:`${Number(cm).toFixed(1)} cm`;
-};
-function setLabelText(inputId,text){
-  const el=$(inputId), label=el&&el.closest("label");
-  if(label && label.firstChild) label.firstChild.nodeValue=text+"\n";
-}
-function localeCode(){return lang()==="en"?"en-GB":"pl-PL"}
-prettyDate = d=>new Date(d+"T12:00:00").toLocaleDateString(localeCode(),{day:"numeric",month:"long",year:"numeric"});
-shortDate = d=>new Date(d+"T12:00:00").toLocaleDateString(localeCode(),{day:"2-digit",month:"2-digit"});
-topDate = d=>new Date(d+"T12:00:00").toLocaleDateString(localeCode(),{weekday:"long",day:"numeric",month:"long"});
 
+function appLang(){ return state.settings.language || "pl"; }
+function t(k){ return translations[appLang()][k] || translations.pl[k] || k; }
+function imperial(){ return state.settings.units === "imperial"; }
+function kgToLb(v){ return Number(v) * 2.2046226218; }
+function cmToIn(v){ return Number(v) / 2.54; }
+function lbToKg(v){ return Number(v) / 2.2046226218; }
+function inToCm(v){ return Number(v) * 2.54; }
+function showWeight(v){
+  if(v==="" || v===null || v===undefined || isNaN(Number(v))) return "—";
+  return imperial() ? kgToLb(v).toFixed(2)+" lb" : Number(v).toFixed(2)+" kg";
+}
+function showHeight(v){
+  if(v==="" || v===null || v===undefined || isNaN(Number(v))) return "—";
+  return imperial() ? cmToIn(v).toFixed(1)+" in" : Number(v).toFixed(1)+" cm";
+}
+function locale(){ return appLang()==="en" ? "en-GB" : "pl-PL"; }
+
+prettyDate = d => new Date(d+"T12:00:00").toLocaleDateString(locale(),{day:"numeric",month:"long",year:"numeric"});
+shortDate = d => new Date(d+"T12:00:00").toLocaleDateString(locale(),{day:"2-digit",month:"2-digit"});
+topDate = d => new Date(d+"T12:00:00").toLocaleDateString(locale(),{weekday:"long",day:"numeric",month:"long"});
+
+const originalAgeText = ageText;
 ageText = function(p){
-  if(!p.birthDate)return tr("noBirth");
-  const birth=new Date(p.birthDate+"T"+(p.birthTime||"00:00")+":00"), now=new Date();
-  if(birth>now)return tr("futureBirth");
+  if(!p.birthDate) return t("noBirth");
+  const birth = new Date(p.birthDate+"T"+(p.birthTime||"00:00")+":00");
+  const now = new Date();
+  if(birth>now) return t("futureBirth");
   const days=Math.floor((now-birth)/86400000), weeks=Math.floor(days/7);
-  if(lang()==="en"){
-    if(days<14)return `${days} day${days===1?"":"s"}`;
-    if(days<60)return `${weeks} wk ${days%7} d`;
-  }else{
-    if(days<14)return `${days} dni`;
-    if(days<60)return `${weeks} tyg. ${days%7} dni`;
+  if(appLang()==="en"){
+    if(days<14) return days+" day"+(days===1?"":"s");
+    if(days<60) return weeks+" wk "+(days%7)+" d";
+  } else {
+    if(days<14) return days+" dni";
+    if(days<60) return weeks+" tyg. "+(days%7)+" dni";
   }
-  let months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth()), anchor=new Date(birth);
-  anchor.setMonth(anchor.getMonth()+months);
-  if(anchor>now){months--;anchor=new Date(birth);anchor.setMonth(anchor.getMonth()+months)}
+  let months=(now.getFullYear()-birth.getFullYear())*12+(now.getMonth()-birth.getMonth());
+  let anchor=new Date(birth); anchor.setMonth(anchor.getMonth()+months);
+  if(anchor>now){ months--; anchor=new Date(birth); anchor.setMonth(anchor.getMonth()+months); }
   const extra=Math.floor((now-anchor)/86400000);
-  if(lang()==="en"){
-    if(months<24)return `${months} mo ${extra} d`;
-    return `${Math.floor(months/12)} yr ${months%12} mo`;
+  if(appLang()==="en"){
+    if(months<24) return months+" mo "+extra+" d";
+    return Math.floor(months/12)+" yr "+(months%12)+" mo";
   }
-  if(months<24)return `${months} mies. ${extra} dni`;
-  return `${Math.floor(months/12)} l. ${months%12} mies.`;
+  if(months<24) return months+" mies. "+extra+" dni";
+  return Math.floor(months/12)+" l. "+(months%12)+" mies.";
 };
 
-function applyLocale(){
-  document.documentElement.lang=lang();
-  const q=(sel,txt)=>{const el=document.querySelector(sel);if(el)el.textContent=txt};
-  const qa=(sel,txt)=>document.querySelectorAll(sel).forEach(el=>el.textContent=txt);
-
-  const lead=document.querySelector(".homeLead");
-  if(lead) lead.innerHTML=`${tr("homeChoose")} <span>♡</span>`;
-  const tiles=document.querySelectorAll(".homeTile");
-  const tileData=[
-    ["care","careSub"],["growth","growthSub"],["hygiene","hygieneSub"],["calendar","calendarSub"]
-  ];
-  tiles.forEach((tile,i)=>{
-    const strong=tile.querySelector("strong"), sub=tile.querySelector("span");
-    if(strong) strong.textContent=tr(tileData[i][0]);
-    if(sub) sub.textContent=tr(tileData[i][1]);
-  });
-  const quote=document.querySelector(".homeQuote");
-  if(quote) quote.innerHTML=`<span>♡</span> ${tr("quote")} <span>♡</span>`;
-  qa(".backHome",tr("back"));
-
-  q("#growth h1",tr("growthTitle")); q("#growth .card h2",tr("chartWeight"));
-  const growthHeads=document.querySelectorAll("#growth .card h2"); if(growthHeads[1])growthHeads[1].textContent=tr("measurementsHistory");
-  q("#hygiene h1",tr("careTitle"));
-  const hyHeads=document.querySelectorAll("#hygiene .card h2"); if(hyHeads[0])hyHeads[0].textContent=tr("careSegment"); if(hyHeads[1])hyHeads[1].textContent=tr("meds");
-  q("#calendar h1",tr("calendarTitle")); q("#calendar .title .small",tr("calendarSubhead"));
-
-  if($("addMeasure"))$("addMeasure").textContent=tr("addMeasurement");
-  if($("addFeed"))$("addFeed").textContent=tr("addFeed");
-  if($("newCare"))$("newCare").textContent=tr("addCare");
-  if($("newMed"))$("newMed").textContent=tr("addMed");
-  if($("newEvent"))$("newEvent").textContent=tr("addEvent");
-
-  if($("menuTitle"))$("menuTitle").textContent=tr("menu");
-  if($("manageProfilesBtn"))$("manageProfilesBtn").textContent=tr("profiles");
-  if($("clearHistoryBtn"))$("clearHistoryBtn").textContent=tr("clear");
-  if($("clearHistoryNote"))$("clearHistoryNote").textContent=tr("clearNote");
-  if($("appSettingsTitle"))$("appSettingsTitle").textContent=tr("settings");
-  setLabelText("languageSelect",tr("language"));
-  setLabelText("unitsSelect",tr("units"));
-  if($("saveAppSettings"))$("saveAppSettings").textContent=tr("saveSettings");
-
-  const sm=$("settingsModal"); if(sm){
-    const h=sm.querySelector("h2"); if(h)h.textContent=tr("profilesTitle");
-    const n=sm.querySelector(".note"); if(n)n.textContent=tr("profilesNote");
-  }
-  const pm=$("profileModal"); if(pm){
-    const h=pm.querySelector("h2"); if(h)h.textContent=tr("profileTitle");
-    setLabelText("photoInput",tr("photo")); setLabelText("profileName",tr("name"));
-    setLabelText("birthDate",tr("birthDate")); setLabelText("birthTime",tr("birthTime"));
-    const ic=pm.querySelector(".small"); if(ic)ic.textContent=tr("icon");
-    if($("saveProfile"))$("saveProfile").textContent=tr("saveProfile");
-  }
-  const fm=$("feedModal"); if(fm){
-    if(editFeedIndex===null && $("feedModalTitle"))$("feedModalTitle").textContent=tr("addFeedTitle");
-    setLabelText("feedTime",tr("time")); setLabelText("feedAmount",tr("amount")); setLabelText("feedMethod",tr("method"));
-    if($("saveFeed"))$("saveFeed").textContent=tr("saveFeed");
-  }
-  const mm=$("measureModal"); if(mm){
-    const h=mm.querySelector("h2"); if(h)h.textContent=tr("addMeasureTitle");
-    setLabelText("measureDate",tr("date"));
-    setLabelText("weight",`${tr("weightLabel")} (${isImperial()?"lb":"kg"})`);
-    setLabelText("height",`${tr("heightLabel")} (${isImperial()?"in":"cm"})`);
-    if($("saveMeasure"))$("saveMeasure").textContent=tr("saveMeasure");
-  }
-  const em=$("eventModal"); if(em){
-    const h=em.querySelector("h2"); if(h)h.textContent=tr("addEventTitle");
-    setLabelText("eventDate",tr("date")); setLabelText("eventTime",tr("time")); setLabelText("eventName",tr("eventName"));
-    if($("saveEvent"))$("saveEvent").textContent=tr("saveEvent");
-  }
-
-  if($("languageSelect"))$("languageSelect").value=lang();
-  if($("unitsSelect"))$("unitsSelect").value=state.settings.units;
-}
-
-renderProfilePreview = function(){
-  const p=state.profiles[child]||{}, m=latestMeasurement();
+function renderSharedProfiles(){
+  const p=state.profiles[child]||{};
+  const measurements=(state.measurements[child]||[]).slice().filter(x=>x.date).sort((a,b)=>a.date.localeCompare(b.date));
+  const m=measurements.length ? measurements[measurements.length-1] : null;
   getPhoto(child).then(photo=>{
-    document.querySelectorAll("[data-profile-preview]").forEach(box=>{
-      box.innerHTML=`<div class="avatar">${photo?`<img src="${photo}" alt="${state.names[child]}">`:(p.icon||"👶")}</div>
-      <div class="profileMeta"><strong>${state.names[child]}</strong><div class="small">${ageText(p)}</div>
-      <div class="profileStats">
-        <div class="profileStat"><div class="small">${tr("currentWeight")}</div><strong>${m?.weight?fmtWeight(m.weight):"—"}</strong></div>
-        <div class="profileStat"><div class="small">${tr("currentHeight")}</div><strong>${m?.height?fmtHeight(m.height):"—"}</strong></div>
-      </div></div>`;
+    document.querySelectorAll("[data-shared-profile]").forEach(box=>{
+      box.innerHTML=
+        '<div class="avatar">'+(photo?'<img src="'+photo+'" alt="'+state.names[child]+'">':(p.icon||"👶"))+'</div>'+
+        '<div class="profileMeta"><strong>'+state.names[child]+'</strong><div class="small">'+ageText(p)+'</div>'+
+        '<div class="profileStats">'+
+        '<div class="profileStat"><div class="small">'+t("currentWeight")+'</div><strong>'+(m&&m.weight?showWeight(m.weight):"—")+'</strong></div>'+
+        '<div class="profileStat"><div class="small">'+t("currentHeight")+'</div><strong>'+(m&&m.height?showHeight(m.height):"—")+'</strong></div>'+
+        '</div></div>';
     });
   });
-};
+}
 
-renderCare = function(){
-  const feeds=sortedFeeds(), total=feeds.reduce((s,x)=>s+Number(x.amount||0),0), pee=feeds.filter(x=>x.pee).length, poop=feeds.filter(x=>x.poop).length, avg=feeds.length?Math.round(total/feeds.length):0;
-  $("summary").innerHTML=`<div class="metric">🍼<strong>${total} ml</strong><span class="small">${feeds.length} ${tr("feeds")}</span></div>
-  <div class="metric">⌀<strong>${avg} ml</strong><span class="small">${tr("average")}</span></div>
-  <div class="metric">💧<strong>${pee}</strong><span class="small">${tr("pee")}</span></div>
-  <div class="metric">💩<strong>${poop}</strong><span class="small">${tr("poop")}</span></div>`;
-  $("feedList").innerHTML=feeds.length?feeds.map(f=>`<div class="feed"><div class="time">${f.time||"—"}</div><div>
-  <div class="amount">${f.amount} ml</div><div class="small">${f.method}</div>
-  <div class="feedActions"><button class="tinyBtn" data-edit-feed="${f._i}">✏️ ${tr("edit")}</button><button class="tinyBtn danger" data-delete-feed="${f._i}">🗑 ${tr("delete")}</button></div>
-  </div><div>${f.pee?"💧":""}${f.poop?"💩":""}</div></div>`).join(""):`<div class="empty">${tr("noRecords")}</div>`;
-};
-
-renderGrowth = function(){
-  const list=(state.measurements[child]||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
-  $("measureList").innerHTML=list.length?list.map(i=>`<div class="task"><span>${prettyDate(i.date)}</span><strong style="margin-left:auto">${i.weight?fmtWeight(i.weight):""}${i.height?" • "+fmtHeight(i.height):""}</strong></div>`).join(""):`<div class="empty">${tr("noMeasurements")}</div>`;
-  const valid=list.filter(x=>x.weight&&!isNaN(Number(x.weight)));
-  if(!valid.length){$("chart").innerHTML=`<div class="empty">${tr("addWeightChart")}</div>`;return}
-  const vals=valid.map(x=>isImperial()?kgToLb(x.weight):Number(x.weight)), max=Math.max(...vals), min=Math.min(...vals), pad=isImperial()?.3:.15, yMin=Math.max(0,min-pad), yMax=max+pad, W=520,H=240,L=48,R=18,T=18,B=46;
-  const x=i=>valid.length===1?(L+(W-R))/2:L+i*((W-R-L)/(valid.length-1)), y=v=>T+(yMax-v)*((H-B-T)/(yMax-yMin||1));
-  const pts=valid.map((d,i)=>`${x(i)},${y(vals[i])}`).join(" ");
-  const unit=isImperial()?"lb":"kg";
-  const dots=valid.map((d,i)=>`<circle cx="${x(i)}" cy="${y(vals[i])}" r="4" fill="#8fa99a"/>
-  <text x="${x(i)}" y="${y(vals[i])-10}" text-anchor="middle" font-size="11" fill="#38433e">${vals[i].toFixed(2)} ${unit}</text>
-  <text x="${x(i)}" y="${H-18}" text-anchor="middle" font-size="10" fill="#7b837e">${shortDate(d.date)}</text>`).join("");
-  $("chart").innerHTML=`<svg class="chartSvg" viewBox="0 0 ${W} ${H}" role="img"><line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#ddd"/><line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#ddd"/><polyline points="${pts}" fill="none" stroke="#8fa99a" stroke-width="3"/>${dots}</svg>`;
-};
-
-taskHTML = function(list,type){
-  if(!list.length)return`<div class="empty">${tr("noItems")}</div>`;
-  return list.map((item,index)=>{const checked=!!(type==="care"?state.taskChecks:state.medChecks)[taskCheckKey(type,selectedDate,child,index)];
-  return`<div class="task"><input type="checkbox" data-task="${type}" data-index="${index}" ${checked?"checked":""}><span class="taskName">${item.name}</span>
-  <span class="taskBtns"><button class="tinyBtn" data-edit-task="${type}:${index}">✏️</button><button class="tinyBtn danger" data-delete-task="${type}:${index}">🗑</button></span></div>`}).join("");
-};
-
-renderEvents = function(){
-  renderCalendar();
-  const all=state.events.slice().sort((a,b)=>(a.date+(a.time||"")).localeCompare(b.date+(b.time||""))), filtered=all.filter(e=>e.date===selectedCalendarDay);
-  $("eventsTitle").textContent=`${tr("events")} • ${prettyDate(selectedCalendarDay)}`;
-  $("eventList").innerHTML=filtered.length?filtered.map(e=>{const oi=state.events.indexOf(e);return`<div class="event"><strong>${e.name}</strong><div class="small">${e.time||tr("noTime")}</div><button class="tinyBtn danger" data-delete-event="${oi}">${tr("delete")}</button></div>`}).join(""):`<div class="empty">${tr("noEvents")}</div>`;
-};
-
-renderHomeProfiles = function(){
-  const wrap=$("homeProfiles"); if(!wrap)return;
-  Promise.all([getPhoto(0),getPhoto(1)]).then(photos=>{
-    wrap.innerHTML=[0,1].map(i=>{
-      const measurements=(state.measurements[i]||[]).slice().filter(x=>x.date).sort((a,b)=>a.date.localeCompare(b.date));
-      const m=measurements.length?measurements[measurements.length-1]:null, age=ageText(state.profiles[i]||{});
-      const avatar=photos[i]?`<img src="${photos[i]}" alt="${state.names[i]}">`:`<span>${state.profiles[i]?.icon||"👶"}</span>`;
-      return `<button type="button" class="homeProfile ${i===child?"active":""}" data-home-child="${i}" aria-pressed="${i===child}">
-      <div class="homeAvatar">${avatar}</div><div class="homeProfileText"><strong>${state.names[i]}</strong><span>${age}</span>
-      <small>${m?.weight?fmtWeight(m.weight):"—"} · ${m?.height?fmtHeight(m.height):"—"}</small></div><span class="selectedMark">${i===child?"✓":""}</span></button>`;
-    }).join("");
-    wrap.querySelectorAll("[data-home-child]").forEach(btn=>btn.addEventListener("click",()=>{
-      child=Number(btn.dataset.homeChild); renderNames();renderCare();renderGrowth();renderTasks();renderProfilePreview();renderHomeProfiles();
-    }));
+function applyLanguage(){
+  document.documentElement.lang=appLang();
+  const lead=document.querySelector(".homeLead");
+  if(lead) lead.innerHTML=t("choose")+' <span>♡</span>';
+  const tileMap=[
+    ["care","careSub"],["growth","growthSub"],["hygiene","hygieneSub"],["calendar","calendarSub"]
+  ];
+  document.querySelectorAll(".homeTile").forEach((tile,i)=>{
+    const strong=tile.querySelector("strong"), sub=tile.querySelector("span");
+    if(strong) strong.textContent=t(tileMap[i][0]);
+    if(sub) sub.textContent=t(tileMap[i][1]);
   });
+  const quote=document.querySelector(".homeQuote");
+  if(quote) quote.innerHTML='<span>♡</span> '+t("quote")+' <span>♡</span>';
+  document.querySelectorAll(".backHome").forEach(b=>b.textContent=t("home"));
+
+  $("mainMenuTitle").textContent=t("menu");
+  $("openProfilesBtn").textContent=t("profiles");
+  $("clearAllBtn").textContent=t("clear");
+  $("clearAllNote").textContent=t("clearNote");
+  $("appSettingsTitle").textContent=t("appSettings");
+  $("saveAppSettingsBtn").textContent=t("save");
+
+  const langLabel=$("appLanguage").closest("label");
+  if(langLabel && langLabel.firstChild) langLabel.firstChild.nodeValue=t("language")+"\n";
+  const unitLabel=$("appUnits").closest("label");
+  if(unitLabel && unitLabel.firstChild) unitLabel.firstChild.nodeValue=t("units")+"\n";
+}
+
+const oldRenderProfilePreview = renderProfilePreview;
+renderProfilePreview = function(){
+  oldRenderProfilePreview();
+  renderSharedProfiles();
 };
 
-// Rewire hamburger and gear.
-$("homeMenu").onclick=()=>{$("menuModal").showModal();};
-$("settings").onclick=()=>{
-  $("languageSelect").value=lang(); $("unitsSelect").value=state.settings.units; applyLocale(); $("appSettingsModal").showModal();
+const oldRenderGrowth = renderGrowth;
+renderGrowth = function(){
+  oldRenderGrowth();
+
+  // Convert visible measurement history.
+  const list=(state.measurements[child]||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
+  $("measureList").innerHTML=list.length ? list.map(i=>
+    '<div class="task"><span>'+prettyDate(i.date)+'</span><strong style="margin-left:auto">'+
+    (i.weight?showWeight(i.weight):"")+(i.height?" • "+showHeight(i.height):"")+
+    '</strong></div>'
+  ).join("") : '<div class="empty">'+(appLang()==="en"?"No measurements.":"Brak pomiarów.")+'</div>';
+
+  // Re-render weight chart in selected unit.
+  const valid=list.filter(x=>x.weight&&!isNaN(Number(x.weight)));
+  if(!valid.length) return;
+  const vals=valid.map(x=>imperial()?kgToLb(x.weight):Number(x.weight));
+  const max=Math.max(...vals), min=Math.min(...vals), pad=imperial()?0.3:0.15;
+  const yMin=Math.max(0,min-pad), yMax=max+pad, W=520,H=240,L=48,R=18,T=18,B=46;
+  const xx=i=>valid.length===1?(L+(W-R))/2:L+i*((W-R-L)/(valid.length-1));
+  const yy=v=>T+(yMax-v)*((H-B-T)/(yMax-yMin||1));
+  const points=valid.map((d,i)=>xx(i)+","+yy(vals[i])).join(" ");
+  const unit=imperial()?"lb":"kg";
+  const dots=valid.map((d,i)=>
+    '<circle cx="'+xx(i)+'" cy="'+yy(vals[i])+'" r="4" fill="#8fa99a"/>'+
+    '<text x="'+xx(i)+'" y="'+(yy(vals[i])-10)+'" text-anchor="middle" font-size="11" fill="#38433e">'+vals[i].toFixed(2)+' '+unit+'</text>'+
+    '<text x="'+xx(i)+'" y="'+(H-18)+'" text-anchor="middle" font-size="10" fill="#7b837e">'+shortDate(d.date)+'</text>'
+  ).join("");
+  $("chart").innerHTML='<svg class="chartSvg" viewBox="0 0 '+W+' '+H+'" role="img">'+
+    '<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#ddd"/>'+
+    '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#ddd"/>'+
+    '<polyline points="'+points+'" fill="none" stroke="#8fa99a" stroke-width="3"/>'+dots+'</svg>';
 };
-$("manageProfilesBtn").onclick=()=>{
-  $("menuModal").close();
-  $("editProfile0").textContent=`${state.profiles[0]?.icon||"👶"} ${state.names[0]}`;
-  $("editProfile1").textContent=`${state.profiles[1]?.icon||"👶"} ${state.names[1]}`;
-  applyLocale(); $("settingsModal").showModal();
+
+const oldRender = render;
+render = function(){
+  oldRender();
+  $("dateBtn").textContent=topDate(selectedDate);
+  renderSharedProfiles();
+  applyLanguage();
 };
-$("clearHistoryBtn").onclick=()=>{
-  if(!confirm(tr("clearConfirm1")))return;
-  if(!confirm(tr("clearConfirm2")))return;
+
+// Hamburger: real menu
+$("homeMenu").onclick = function(){
+  applyLanguage();
+  $("mainMenuModal").showModal();
+};
+
+// Gear: app settings
+$("settings").onclick = function(){
+  $("appLanguage").value=state.settings.language;
+  $("appUnits").value=state.settings.units;
+  applyLanguage();
+  $("appSettingsModal").showModal();
+};
+
+// Open profiles from hamburger menu
+$("openProfilesBtn").onclick = function(){
+  $("mainMenuModal").close();
+  $("editProfile0").textContent=(state.profiles[0]?.icon||"👶")+" "+state.names[0];
+  $("editProfile1").textContent=(state.profiles[1]?.icon||"👶")+" "+state.names[1];
+  $("settingsModal").showModal();
+};
+
+// Clear all daily/history records, keep profiles and task definitions
+$("clearAllBtn").onclick = function(){
+  if(!confirm(t("confirm1"))) return;
+  if(!confirm(t("confirm2"))) return;
   state.feeds={};
   state.measurements=[[],[]];
   state.taskChecks={};
@@ -804,40 +741,47 @@ $("clearHistoryBtn").onclick=()=>{
   state.events=[];
   save();
   selectedCalendarDay=selectedDate;
-  $("menuModal").close();
+  $("mainMenuModal").close();
   render();
-  alert(tr("cleared"));
-};
-$("saveAppSettings").onclick=()=>{
-  state.settings.language=$("languageSelect").value;
-  state.settings.units=$("unitsSelect").value;
-  save(); $("appSettingsModal").close(); render(); applyLocale();
+  alert(t("cleared"));
 };
 
-// Override measurement save: input is displayed in chosen units, storage remains kg/cm.
-$("addMeasure").onclick=()=>{
-  $("measureDate").value=selectedDate;
-  $("weight").value=""; $("height").value="";
-  applyLocale(); $("measureModal").showModal();
+// Save language + units
+$("saveAppSettingsBtn").onclick = function(){
+  state.settings.language=$("appLanguage").value;
+  state.settings.units=$("appUnits").value;
+  save();
+  $("appSettingsModal").close();
+  render();
 };
-$("saveMeasure").onclick=()=>{
-  if(!$("weight").value&&!$("height").value)return;
+
+// Measurement input respects chosen units, but storage remains kg/cm.
+$("addMeasure").onclick = function(){
+  $("measureDate").value=selectedDate;
+  $("weight").value="";
+  $("height").value="";
+  const wLabel=$("weight").closest("label"), hLabel=$("height").closest("label");
+  if(wLabel && wLabel.firstChild) wLabel.firstChild.nodeValue=(appLang()==="en"?"Weight":"Waga")+" ("+(imperial()?"lb":"kg")+")\n";
+  if(hLabel && hLabel.firstChild) hLabel.firstChild.nodeValue=(appLang()==="en"?"Height":"Wzrost")+" ("+(imperial()?"in":"cm")+")\n";
+  $("measureModal").showModal();
+};
+
+$("saveMeasure").onclick = function(){
+  if(!$("weight").value && !$("height").value) return;
   let w=$("weight").value, h=$("height").value;
-  if(isImperial()){
+  if(imperial()){
     if(w) w=lbToKg(w).toFixed(4);
     if(h) h=inToCm(h).toFixed(2);
   }
   state.measurements[child].push({date:$("measureDate").value,weight:w,height:h});
-  save();$("measureModal").close();$("weight").value=$("height").value="";render();
+  save();
+  $("measureModal").close();
+  $("weight").value="";
+  $("height").value="";
+  render();
 };
 
-const originalRender=render;
-render=function(){
-  $("dateBtn").textContent=topDate(selectedDate);
-  renderNames();renderProfilePreview();renderCare();renderGrowth();renderTasks();renderEvents();renderHomeProfiles();applyLocale();
-};
-
-applyLocale();
+applyLanguage();
 render();
 renderHomeProfiles();
 
